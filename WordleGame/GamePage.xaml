@@ -8,10 +8,10 @@
             Text="Welcome to .NET MAUI!"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        <Button x:Name="backButton" Clicked="backButton_Clicked"></Button>
+       <!-- <Button x:Name="backButton" Clicked="backButton_Clicked"></Button>-->
         
         <!--Creates the grid where the entries will be placed-->
-        <Grid x:Name="gameGrid"  HeightRequest="350" WidthRequest="300"
+        <Grid x:Name="gameGrid"  HeightRequest="450" WidthRequest="300"
 HorizontalOptions="Center" VerticalOptions="Center">
 
         </Grid>

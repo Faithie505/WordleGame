@@ -3,7 +3,8 @@ namespace WordleGame;
 public partial class GamePage : ContentPage
 {
 	//variables
-	Entry myEntry; 
+	Entry myEntry = new Entry();
+    Border myBorder = new Border();
 	public GamePage()
 	{
 		InitializeComponent();
@@ -12,10 +13,10 @@ public partial class GamePage : ContentPage
     }
 
 	//when the button is clicked, calls this method to go back to the home page
-    private async void backButton_Clicked(object sender, EventArgs e)
+    /*private async void backButton_Clicked(object sender, EventArgs e)
     {
 		await Navigation.PopAsync();
-    }
+    }*/
 
 	//creates a grid and each row and column has an entry
 	private void StartGrid()
@@ -30,6 +31,7 @@ public partial class GamePage : ContentPage
 			for(int j = 0; j<5; j++)
 			{
                 //sets myEntry to a new Entry instance
+                myBorder = new Border();
                 myEntry = new Entry();
                 myEntry.Placeholder = " ";
                 myEntry.MaximumWidthRequest = 50;
@@ -38,10 +40,17 @@ public partial class GamePage : ContentPage
                 myEntry.HorizontalTextAlignment = TextAlignment.Center;
                // myEntry.TextChanged += OnTextChanged;
                 myEntry.MaxLength = 1;
-               // myEntry.Completed += MoveFocusToPreviousEntry;
+                
+               
+                myBorder.StrokeThickness = 3;
+                myBorder.Stroke = Colors.Black;
+               // myBorder.BackgroundColor = Colors.Black;
+                myBorder.Content = myEntry;
+
+                // myEntry.Completed += MoveFocusToPreviousEntry;
 
                 //each entry is added to each row and column of the grid
-                gameGrid.Add(myEntry, j, i);
+                gameGrid.Add(myBorder, j, i);
             }
         }
 
