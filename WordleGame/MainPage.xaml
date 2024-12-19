@@ -5,13 +5,15 @@
 
     <ScrollView>
         <VerticalStackLayout
-            Padding="30,0"
-            Spacing="25">
+            Padding="30"
+            Spacing="55"
+            HorizontalOptions="Center"
+            VerticalOptions="Center">
 
-            <Button x:Name="playButton" Text="Play Game" WidthRequest="200"></Button>
-            <Button x:Name="ruleButton" Text="Rules" WidthRequest="200"></Button>
-            <Button x:Name="settings" Text="Settings" WidthRequest="200"></Button>
-            <Button x:Name="statsButton" Text="Statistics" WidthRequest="200"></Button>             
+            <Button x:Name="playButton" Text="Play Game" WidthRequest="300" FontSize="30"></Button>
+            <Button x:Name="ruleButton" Text="Rules" WidthRequest="300" FontSize="30"></Button>
+            <Button x:Name="settings" Text="Settings" WidthRequest="300" FontSize="30"></Button>
+            <Button x:Name="statsButton" Text="Statistics" WidthRequest="300" FontSize="30"></Button>             
         </VerticalStackLayout>
     </ScrollView>
 
