@@ -1,7 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="WordleGame.MainPage">
+             x:Class="WordleGame.MainPage"
+             xmlns:local="clr-namespace:WordleGame"
+             >
 
     <ScrollView>
         <VerticalStackLayout
@@ -10,7 +12,7 @@
             HorizontalOptions="Center"
             VerticalOptions="Center">
 
-            <Button x:Name="playButton" Text="Play Game" WidthRequest="300" FontSize="30"></Button>
+            <Button x:Name="playButton" Text="Play Game" WidthRequest="300" FontSize="30" Clicked="playButton_Clicked"></Button>
             <Button x:Name="ruleButton" Text="Rules" WidthRequest="300" FontSize="30"></Button>
             <Button x:Name="settings" Text="Settings" WidthRequest="300" FontSize="30"></Button>
             <Button x:Name="statsButton" Text="Statistics" WidthRequest="300" FontSize="30"></Button>             
