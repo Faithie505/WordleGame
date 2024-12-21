@@ -5,6 +5,8 @@ public partial class GamePage : ContentPage
     //variables
     Entry myEntry = new Entry();
     Border myBorder = new Border();
+    int rows = 0;
+    int count;
     public GamePage()
     {
         InitializeComponent();
@@ -52,40 +54,45 @@ public partial class GamePage : ContentPage
 
     private void OnTextChanged(object sender, TextChangedEventArgs e)
     {
-       // test.Text = "hii";
         //Takes in what ever entry the user is typing in
         var currentEntry = (Entry)sender;
+        //depending what row the user is on, makes count equal to the numer of the first column in that row
+        if (rows == 0)
+            count = 0;
+        else if (rows == 1)
+            count = 5;
+        else if (rows == 2)
+            count = 10;
+        else if (rows == 3)
+            count = 15;
+        else if (rows == 4)
+            count = 20;
+        else if (rows == 5)
+            count = 25;
         //if the entry was empty and the new text value isnt empty (if the user types something)
-       // if (string.IsNullOrEmpty(e.OldTextValue) && !string.IsNullOrEmpty(currentEntry.Text))
-       // {
-            if(currentEntry == gameGrid.Children[0])//if the current enrty is the first entry in a row
+        if (string.IsNullOrEmpty(e.OldTextValue) && !string.IsNullOrEmpty(currentEntry.Text))
+       {
+            if(currentEntry == gameGrid.Children[count])//if the current enrty is the first entry in a row
             {
-            test.Text = "hii";
-            gameGrid.Children[1].Focus(); // automatically focuses on the next entry for the user to type in
+            gameGrid.Children[count+1].Focus(); // automatically focuses on the next entry for the user to type in
             }
-            else if (currentEntry == gameGrid.Children[1])//if the current entry is the second entry in a row
+            else if (currentEntry == gameGrid.Children[count+1])//if the current entry is the second entry in a row
             {
-            test.Text = "hii";
-            gameGrid.Children[2].Focus(); // automatically focuses on the next entry for the user to type in
+            gameGrid.Children[count+2].Focus(); // automatically focuses on the next entry for the user to type in
             }
-            else if (currentEntry == gameGrid.Children[2])//if the current entry is the third entry in a row
+            else if (currentEntry == gameGrid.Children[count + 2])//if the current entry is the third entry in a row
             {
-            test.Text = "hii";
-            gameGrid.Children[3].Focus(); // automatically focuses on the next entry for the user to type in
+            gameGrid.Children[count+3].Focus(); // automatically focuses on the next entry for the user to type in
             }
-            else if (currentEntry == gameGrid.Children[3])//if the current enrty is the second entry in a row
+            else if (currentEntry == gameGrid.Children[count+ 3])//if the current enrty is the second entry in a row
             {
-            test.Text = "hii";
-            gameGrid.Children[4].Focus(); // automatically focuses on the next entry for the user to type in
+            gameGrid.Children[count+4].Focus(); // automatically focuses on the next entry for the user to type in
             }
-            else if (currentEntry == gameGrid.Children[4])//if the current enrty is the second entry in a row
+            else if (currentEntry == gameGrid.Children[count + 4])//if the current enrty is the second entry in a row
             {
-            test.Text = "hii";
-            gameGrid.Children[4].Focus(); // automatically focuses on the next entry for the user to type in
+            gameGrid.Children[count+4].Focus(); // automatically focuses on the next entry for the user to type in
             }
-
-
-      //  }
+        }
     }
 
 
