@@ -38,8 +38,9 @@ public partial class GamePage : ContentPage
                 myEntry.Placeholder = " ";
                 myEntry.FontSize = 30;
                 myEntry.HorizontalTextAlignment = TextAlignment.Center;
-                myEntry.TextChanged += OnTextChanged; 
+                myEntry.TextChanged += MoveToNext; 
                 myEntry.MaxLength = 1;
+                myEntry.Completed += MoveToPrevious;
                // myEntry.BackgroundColor = Colors.Black;
 
                 myBorder.StrokeThickness = 2;
@@ -54,7 +55,7 @@ public partial class GamePage : ContentPage
 
     //when the text in an entry changes(when the user trypes something),  calls this method 
     //the method types the letter into an entry and focuses on the next entry
-    private void OnTextChanged(object sender, TextChangedEventArgs e)
+    private void MoveToNext(object sender, TextChangedEventArgs e)
     {
 
         //Takes in what ever entry the user is typing in
@@ -94,6 +95,39 @@ public partial class GamePage : ContentPage
             else if (currentEntry == gameGrid.Children[count + 4])//if the current enrty is the second entry in a row
             {
             gameGrid.Children[count+4].Focus(); // automatically focuses on the next entry for the user to type in
+            }
+        }
+    }
+
+    private void MoveToPrevious(object sender, EventArgs e)
+    {
+        int theNumber = 0;
+        var currentEntry = sender as Entry;
+        if (currentEntry.Text == null || currentEntry.Text == string.Empty)
+        {
+            if (rows == 0)
+                theNumber = 0;
+            else if (rows == 1)
+                theNumber = 5;
+            else if (rows == 2)
+                theNumber = 10;
+            else if (rows == 2)
+                theNumber = 15;
+            if (currentEntry == gameGrid.Children[theNumber + 1])
+            {
+                gameGrid.Children[theNumber].Focus();
+            }
+            else if (currentEntry == gameGrid.Children[theNumber + 2])
+            {
+                gameGrid.Children[theNumber + 1].Focus();
+            }
+            else if (currentEntry == gameGrid.Children[theNumber + 3])
+            {
+                gameGrid.Children[theNumber + 2].Focus();
+            }
+            else if (currentEntry == gameGrid.Children[theNumber + 4])
+            {
+                gameGrid.Children[theNumber + 3].Focus();
             }
         }
     }
