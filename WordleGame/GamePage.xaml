@@ -7,12 +7,13 @@
         <Label 
             Text="Welcome to .NET MAUI!"
             VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-       <!-- <Button x:Name="backButton" Clicked="backButton_Clicked"></Button>-->
-        
+            HorizontalOptions="Center" 
+            x:Name="test"/>
+        <Button x:Name="backButton" Clicked="backButton_Clicked"></Button>
+
         <!--Creates the grid where the entries will be placed-->
         <Grid x:Name="gameGrid"  HeightRequest="450" WidthRequest="300"
-HorizontalOptions="Center" VerticalOptions="Center">
+HorizontalOptions="Center" VerticalOptions="Center" >
 
         </Grid>
     </VerticalStackLayout>
