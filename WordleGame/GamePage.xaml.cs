@@ -52,8 +52,11 @@ public partial class GamePage : ContentPage
         }
     }
 
+    //when the text in an entry changes(when the user trypes something),  calls this method 
+    //the method types the letter into an entry and focuses on the next entry
     private void OnTextChanged(object sender, TextChangedEventArgs e)
     {
+
         //Takes in what ever entry the user is typing in
         var currentEntry = (Entry)sender;
         //depending what row the user is on, makes count equal to the numer of the first column in that row
