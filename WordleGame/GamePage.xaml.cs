@@ -7,11 +7,11 @@ public partial class GamePage : ContentPage
     Border myBorder = new Border();
     int rows = 0;
     int count;
+
     public GamePage()
     {
         InitializeComponent();
-        StartGrid();
-
+        StartGrid();//creates the grid of entries when the page loads
     }
 
     //when the button is clicked, calls this method to go back to the home page
@@ -57,7 +57,6 @@ public partial class GamePage : ContentPage
     //the method types the letter into an entry and focuses on the next entry
     private void MoveToNext(object sender, TextChangedEventArgs e)
     {
-
         //Takes in what ever entry the user is typing in
         var currentEntry = (Entry)sender;
         //depending what row the user is on, makes count equal to the numer of the first column in that row
@@ -132,7 +131,66 @@ public partial class GamePage : ContentPage
         }
     }
 
+    private void OnKeyClicked(object sender, EventArgs e)
+    {
+        var button = sender as Button;
+        Entry a = new Entry();
+        Entry b = new Entry();
+        Entry c = new Entry();
+        Entry d = new Entry();
+        Entry f = new Entry();
+        int theNumber = 0;
+        if (rows == 0)
+            theNumber = 0;
+        else if (rows == 1)
+            theNumber = 5;
+        else if (rows == 2)
+            theNumber = 10;
+        else if (rows == 2)
+            theNumber = 15;
+
+        a = gameGrid.Children[theNumber] as Entry;
+        b = gameGrid.Children[theNumber + 1] as Entry;
+        c = gameGrid.Children[theNumber + 2] as Entry;
+        d = gameGrid.Children[theNumber + 3] as Entry;
+        f = gameGrid.Children[theNumber + 4] as Entry;
 
 
+        if (button != null)
+        {
+            // Append the button text (number) to the Entry text
+            //NumberEntry.Text += button.Text;
+            if (a.Text == null)
+            {
+                a.Text = button.Text;
+                b.Focus();
+            }
 
+            else if (b.Text == null || b.Text == string.Empty)
+            {
+                b.Text = button.Text;
+                c.Focus();
+            }
+            else if (c.Text == null || c.Text == string.Empty)
+            {
+                c.Text = button.Text;
+                d.Focus();
+            }
+            else if (d.Text == null || d.Text == string.Empty)
+            {
+                d.Text = button.Text;
+                f.Focus();
+            }
+            else if (f.Text == null || f.Text == string.Empty)
+            {
+                f.Text = button.Text;
+                f.Focus();
+            }
+        }
+    }
+
+    private void enterButton_Clicked(object sender, EventArgs e)
+    {
+
+    }
 }
