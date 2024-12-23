@@ -8,6 +8,7 @@ public partial class GamePage : ContentPage
     //variables
     Entry myEntry = new Entry();
     Border myBorder = new Border();
+    Frame frame;
     int rows = 0;
     int count;
     //test list of words
@@ -61,28 +62,31 @@ public partial class GamePage : ContentPage
             for (int j = 0; j < 5; j++)
             {
                 //sets myEntry to a new Entry instance
-                myBorder = new Border();
                 myEntry = new Entry();
+                frame = new Frame();
                 myEntry.Placeholder = " ";
-                myEntry.FontSize = 30;
+                myEntry.FontSize = 20;
                 myEntry.HorizontalTextAlignment = TextAlignment.Center;
                 myEntry.TextChanged += MoveToNext;
                 myEntry.MaxLength = 1;
                 myEntry.Completed += MoveToPrevious;
-                // myEntry.BackgroundColor = Colors.Black;
 
-                myBorder.StrokeThickness = 2;
-                myBorder.Stroke = Colors.Black;
-                myBorder.Content = myEntry;
+                //creates a frame that contains the entry insinde and has a border
+                frame.Content = myEntry;
+                frame.BorderColor = Colors.Gray;
+                frame.CornerRadius = 0;
+                frame.Padding = 0;
+                frame.Margin = 0;
 
-                //each entry is added to each row and column of the grid
-                gameGrid.Add(myEntry, j, i);
+                //each frame containing an entry is added to each row and column of the grid
+                gameGrid.Add(frame, j, i);
             }
         }
     }
 
     private void getRow()
     {
+        //depending what row the user is on, makes count equal to the numer of the first column in that row
         if (rows == 0)
             count = 0;
         else if (rows == 1)
@@ -104,29 +108,30 @@ public partial class GamePage : ContentPage
         getRow();
         //Takes in what ever entry the user is typing in
         var currentEntry = (Entry)sender;
-        currentEntry.Text?.ToUpper();
-        //depending what row the user is on, makes count equal to the numer of the first column in that row
-        
+        //makes the var parentFrame equal to the frame that contains the entry in the grid
+        var parentFrame = currentEntry.Parent as Frame;
+
+
         //if the entry was empty and the new text value isnt empty (if the user types something)
         if (string.IsNullOrEmpty(e.OldTextValue) && !string.IsNullOrEmpty(currentEntry.Text))
         {
-            if (currentEntry == gameGrid.Children[count])//if the current enrty is the first entry in a row
+            if (parentFrame == gameGrid.Children[count])//if the current enrty is the first entry in a row
             {
                 gameGrid.Children[count + 1].Focus(); // automatically focuses on the next entry for the user to type in
             }
-            else if (currentEntry == gameGrid.Children[count + 1])//if the current entry is the second entry in a row
+            else if (parentFrame == gameGrid.Children[count + 1])//if the current entry is the second entry in a row
             {
                 gameGrid.Children[count + 2].Focus(); // automatically focuses on the next entry for the user to type in
             }
-            else if (currentEntry == gameGrid.Children[count + 2])//if the current entry is the third entry in a row
+            else if (parentFrame == gameGrid.Children[count + 2])//if the current entry is the third entry in a row
             {
                 gameGrid.Children[count + 3].Focus(); // automatically focuses on the next entry for the user to type in
             }
-            else if (currentEntry == gameGrid.Children[count + 3])//if the current enrty is the second entry in a row
+            else if (parentFrame == gameGrid.Children[count + 3])//if the current enrty is the second entry in a row
             {
                 gameGrid.Children[count + 4].Focus(); // automatically focuses on the next entry for the user to type in
             }
-            else if (currentEntry == gameGrid.Children[count + 4])//if the current enrty is the second entry in a row
+            else if (parentFrame == gameGrid.Children[count + 4])//if the current enrty is the second entry in a row
             {
                 gameGrid.Children[count + 4].Focus(); // automatically focuses on the next entry for the user to type in
             }
@@ -136,24 +141,25 @@ public partial class GamePage : ContentPage
     private void MoveToPrevious(object sender, EventArgs e)
     {
         getRow();
-
         var currentEntry = sender as Entry;
+        var parentFrame = currentEntry.Parent as Frame;
+       
         if (currentEntry.Text == null || currentEntry.Text == string.Empty)
         {
             
-            if (currentEntry == gameGrid.Children[count + 1])
+            if (parentFrame == gameGrid.Children[count + 1])
             {
                 gameGrid.Children[count].Focus();
             }
-            else if (currentEntry == gameGrid.Children[count + 2])
+            else if (parentFrame == gameGrid.Children[count + 2])
             {
                 gameGrid.Children[count + 1].Focus();
             }
-            else if (currentEntry == gameGrid.Children[count + 3])
+            else if (parentFrame == gameGrid.Children[count + 3])
             {
                 gameGrid.Children[count + 2].Focus();
             }
-            else if (currentEntry == gameGrid.Children[count + 4])
+            else if (parentFrame == gameGrid.Children[count + 4])
             {
                 gameGrid.Children[count + 3].Focus();
             }
@@ -162,7 +168,7 @@ public partial class GamePage : ContentPage
 
     private void OnKeyClicked(object sender, EventArgs e)
     {
-        getRow();
+        /*getRow();
         var button = sender as Button;
         Entry a = new Entry();
         Entry b = new Entry();
@@ -170,11 +176,15 @@ public partial class GamePage : ContentPage
         Entry d = new Entry();
         Entry f = new Entry();
 
+        
+
+
         a = gameGrid.Children[count] as Entry;
         b = gameGrid.Children[count + 1] as Entry;
         c = gameGrid.Children[count + 2] as Entry;
         d = gameGrid.Children[count + 3] as Entry;
         f = gameGrid.Children[count + 4] as Entry;
+        
 
 
         if (button != null)
@@ -207,22 +217,54 @@ public partial class GamePage : ContentPage
                 f.Text = button.Text;
                 f.Focus();
             }
-        }
+        }*/
     }
 
     private void enterButton_Clicked(object sender, EventArgs e)
     {
         getRow();
-        string currentGuess = "";
-        Entry gridText;
-        //if the grid isnt at 5 words???
 
-        //finds the text entered by user
-        for (int i = count; i < gameGrid.Children.Count; i++)
+        //var theWord = gameGrid.Children.
+       // var currentEntry = sender as Entry;
+        string currentGuess = "";
+        Entry gridText = new Entry();
+        Entry theEntry = new Entry();
+        Frame framing;
+        //var parentFrame = currentEntry.Parent as Frame;
+
+
+        //if the grid isnt at 5 words???
+        foreach (var item in gameGrid.Children)
         {
-            gridText = gameGrid.Children[i] as Entry;
-            currentGuess += gridText.Text;
+            // Check if the item is a Frame
+            if (item is Frame frame)
+            {
+                // Access the Content of the Frame (which is the Entry)
+                if (frame.Content is Entry entry)
+                {
+                    gridText.Text += entry.Text;
+                        
+                }
+                
+            }
         }
+
+        for(int i = count; i<count +5; i++)
+        {
+            currentGuess += gridText.Text[i];
+            tester.Text = currentGuess;
+        }
+
+
+
+
+                    //finds the text entered by user
+                    /*for (int i = count; i < gameGrid.Children.Count; i++)
+                    {
+                        gridText = gameGrid.Children[i] as Entry;
+                        currentGuess += gridText.Text;
+                    }*/
+
         GetColour(currentGuess);
         rows++;
 
@@ -240,27 +282,37 @@ public partial class GamePage : ContentPage
         getRow();
         string feedback = "a";
         int j = 0;
+        Entry inEntry;
+
+
 
 
         for (int i = count; i < count + 5; i++)
         {
-            myEntry = gameGrid.Children[i] as Entry;
+            frame = gameGrid.Children[i] as Frame;
+            inEntry = frame.Content as Entry;
+            
+
+
             if (guess[j] == correctWord[j])
             {
-                myEntry.BackgroundColor = Colors.Green;
-                myEntry.TextColor = Colors.White;
+                inEntry.TextColor = Colors.White;
+                frame.BackgroundColor = Colors.Green;
+                //frame.TextColor = Colors.White;
                 await Task.Delay(200);
             }
             else if (correctWord.Contains(guess[j]))
             {
-                myEntry.BackgroundColor = Colors.Yellow;
-                myEntry.TextColor = Colors.White;
+                inEntry.TextColor = Colors.White;
+                frame.BackgroundColor = Colors.Yellow;
+               // myEntry.TextColor = Colors.White;
                 await Task.Delay(200);
             }
             else
             {
-                myEntry.BackgroundColor = Colors.Gray;
-                myEntry.TextColor = Colors.White;
+                inEntry.TextColor = Colors.White;
+                frame.BackgroundColor = Colors.Gray;
+                //myEntry.TextColor = Colors.White;
                 await Task.Delay(200);
             }
             j++;

@@ -10,11 +10,12 @@
             VerticalOptions="Center" 
             HorizontalOptions="Center" 
             x:Name="test"/>
-        <Button x:Name="backButton" Clicked="backButton_Clicked"></Button>
+            <Button x:Name="backButton" Clicked="backButton_Clicked"></Button>
+            <Label x:Name="tester" Text="Test"></Label>
 
         <!--Creates the grid where the entries will be placed-->
-        <Grid x:Name="gameGrid"  HeightRequest="480" WidthRequest="330"
-HorizontalOptions="Center" VerticalOptions="Center" RowSpacing="2" ColumnSpacing="2">
+        <Grid x:Name="gameGrid"  HeightRequest="300" WidthRequest="250"
+HorizontalOptions="Center" VerticalOptions="Center" RowSpacing="5" ColumnSpacing="5">
 
         </Grid>
 
