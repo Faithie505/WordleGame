@@ -11,15 +11,32 @@ public partial class GamePage : ContentPage
     int rows = 0;
     int count;
     //test list of words
-    List<String> words = new List<String>() { "apple", "spade", "chase", "range", "dance", "argue" };
+    List<String> words = new List<string>(); //new List<String>() { "apple", "spade", "chase", "range", "dance", "argue" };
     //the right word
     string correctWord = "";
-
+    private GetWordList Words;
+     
     public GamePage()
     {
+        Words = new GetWordList();
         InitializeComponent();
         StartGrid();//creates the grid of entries when the page loads
-        ChooseSecretWord();
+        GetSecretWord();
+        getRow();
+    }
+
+    //this methid randomly chooses one of the words in the list
+
+    private async void GetSecretWord()
+    {
+        await Words.GetWords();
+        await Words.makeWordList();
+        words = Words.wordList;
+
+        var random = new Random();
+
+        correctWord = words[random.Next(words.Count)];
+        backButton.Text = correctWord;
     }
 
     //when the button is clicked, calls this method to go back to the home page
@@ -27,15 +44,7 @@ public partial class GamePage : ContentPage
     {
         await Navigation.PopAsync();
     }
-    //this methid randomly chooses one of the words in the list
-    private void ChooseSecretWord()
-    {
-        var random = new Random();
-        correctWord = words[random.Next(words.Count)];
-    }
-
-
-
+   
 
 
 
@@ -72,14 +81,8 @@ public partial class GamePage : ContentPage
         }
     }
 
-    //when the text in an entry changes(when the user trypes something),  calls this method 
-    //the method types the letter into an entry and focuses on the next entry
-    private void MoveToNext(object sender, TextChangedEventArgs e)
+    private void getRow()
     {
-        //Takes in what ever entry the user is typing in
-        var currentEntry = (Entry)sender;
-        currentEntry.Text?.ToUpper();
-        //depending what row the user is on, makes count equal to the numer of the first column in that row
         if (rows == 0)
             count = 0;
         else if (rows == 1)
@@ -92,6 +95,18 @@ public partial class GamePage : ContentPage
             count = 20;
         else if (rows == 5)
             count = 25;
+    }
+
+    //when the text in an entry changes(when the user trypes something),  calls this method 
+    //the method types the letter into an entry and focuses on the next entry
+    private void MoveToNext(object sender, TextChangedEventArgs e)
+    {
+        getRow();
+        //Takes in what ever entry the user is typing in
+        var currentEntry = (Entry)sender;
+        currentEntry.Text?.ToUpper();
+        //depending what row the user is on, makes count equal to the numer of the first column in that row
+        
         //if the entry was empty and the new text value isnt empty (if the user types something)
         if (string.IsNullOrEmpty(e.OldTextValue) && !string.IsNullOrEmpty(currentEntry.Text))
         {
@@ -120,60 +135,46 @@ public partial class GamePage : ContentPage
 
     private void MoveToPrevious(object sender, EventArgs e)
     {
-        int theNumber = 0;
+        getRow();
+
         var currentEntry = sender as Entry;
         if (currentEntry.Text == null || currentEntry.Text == string.Empty)
         {
-            if (rows == 0)
-                theNumber = 0;
-            else if (rows == 1)
-                theNumber = 5;
-            else if (rows == 2)
-                theNumber = 10;
-            else if (rows == 2)
-                theNumber = 15;
-            if (currentEntry == gameGrid.Children[theNumber + 1])
+            
+            if (currentEntry == gameGrid.Children[count + 1])
             {
-                gameGrid.Children[theNumber].Focus();
+                gameGrid.Children[count].Focus();
             }
-            else if (currentEntry == gameGrid.Children[theNumber + 2])
+            else if (currentEntry == gameGrid.Children[count + 2])
             {
-                gameGrid.Children[theNumber + 1].Focus();
+                gameGrid.Children[count + 1].Focus();
             }
-            else if (currentEntry == gameGrid.Children[theNumber + 3])
+            else if (currentEntry == gameGrid.Children[count + 3])
             {
-                gameGrid.Children[theNumber + 2].Focus();
+                gameGrid.Children[count + 2].Focus();
             }
-            else if (currentEntry == gameGrid.Children[theNumber + 4])
+            else if (currentEntry == gameGrid.Children[count + 4])
             {
-                gameGrid.Children[theNumber + 3].Focus();
+                gameGrid.Children[count + 3].Focus();
             }
         }
     }
 
     private void OnKeyClicked(object sender, EventArgs e)
     {
+        getRow();
         var button = sender as Button;
         Entry a = new Entry();
         Entry b = new Entry();
         Entry c = new Entry();
         Entry d = new Entry();
         Entry f = new Entry();
-        int theNumber = 0;
-        if (rows == 0)
-            theNumber = 0;
-        else if (rows == 1)
-            theNumber = 5;
-        else if (rows == 2)
-            theNumber = 10;
-        else if (rows == 2)
-            theNumber = 15;
 
-        a = gameGrid.Children[theNumber] as Entry;
-        b = gameGrid.Children[theNumber + 1] as Entry;
-        c = gameGrid.Children[theNumber + 2] as Entry;
-        d = gameGrid.Children[theNumber + 3] as Entry;
-        f = gameGrid.Children[theNumber + 4] as Entry;
+        a = gameGrid.Children[count] as Entry;
+        b = gameGrid.Children[count + 1] as Entry;
+        c = gameGrid.Children[count + 2] as Entry;
+        d = gameGrid.Children[count + 3] as Entry;
+        f = gameGrid.Children[count + 4] as Entry;
 
 
         if (button != null)
@@ -211,22 +212,9 @@ public partial class GamePage : ContentPage
 
     private void enterButton_Clicked(object sender, EventArgs e)
     {
+        getRow();
         string currentGuess = "";
         Entry gridText;
-        //int count = 0;
-
-        if (rows == 0)
-            count = 0;
-        else if (rows == 1)
-            count = 5;
-        else if (rows == 2)
-            count = 10;
-        else if (rows == 3)
-            count = 15;
-        else if (rows == 4)
-            count = 20;
-        else if (rows == 5)
-            count = 25;
         //if the grid isnt at 5 words???
 
         //finds the text entered by user
@@ -237,30 +225,24 @@ public partial class GamePage : ContentPage
         }
         GetColour(currentGuess);
         rows++;
+
+        if(count <=21)
+        {
+            gameGrid.Children[count + 5].Focus();
+        }
+        
+
     }
 
     //checks the letters and gives them a colour
     private async void GetColour(string guess)
     {
+        getRow();
         string feedback = "a";
-        int theNumber = 0;
         int j = 0;
 
 
-        Entry myEntry;
-        if (rows == 0)
-            theNumber = 0;
-        else if (rows == 1)
-            theNumber = 5;
-        else if (rows == 2)
-            theNumber = 10;
-        else if (rows == 3)
-            theNumber = 15;
-        else if (rows == 4)
-            theNumber = 20;
-
-
-        for (int i = theNumber; i < theNumber + 5; i++)
+        for (int i = count; i < count + 5; i++)
         {
             myEntry = gameGrid.Children[i] as Entry;
             if (guess[j] == correctWord[j])
