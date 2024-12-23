@@ -284,16 +284,13 @@ public partial class GamePage : ContentPage
         int j = 0;
         Entry inEntry;
 
-
-
-
         for (int i = count; i < count + 5; i++)
         {
             frame = gameGrid.Children[i] as Frame;
             inEntry = frame.Content as Entry;
             
 
-
+            //if the letter is in the right place
             if (guess[j] == correctWord[j])
             {
                 inEntry.TextColor = Colors.White;
@@ -301,6 +298,7 @@ public partial class GamePage : ContentPage
                 //frame.TextColor = Colors.White;
                 await Task.Delay(200);
             }
+            //if the letter is correct but in the wrong place
             else if (correctWord.Contains(guess[j]))
             {
                 inEntry.TextColor = Colors.White;

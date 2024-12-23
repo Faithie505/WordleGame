@@ -3,10 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WordleGame.SettingsPage"
              Title="SettingsPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+    <VerticalStackLayout x:Name="verticalLayout">
+       
+
+        <Grid ColumnDefinitions="*, Auto" RowDefinitions="*, *, *, *, *" HorizontalOptions="Center" ColumnSpacing="300" Padding="20" RowSpacing="20">
+            <Label Text="Dark Mode" HorizontalOptions="Start"  Grid.Row="0" Grid.Column="0" x:Name="darkMode"/>
+            <Switch HorizontalOptions="End" Grid.Row="0" Grid.Column="1" Scale="2" Toggled="Switch_Toggled" x:Name="darkSwitch"/>
+
+            <Label Text="Font Size" HorizontalOptions="Start" FontSize="20" Grid.Row="1" Grid.Column="0" x:Name="fontSize"/>
+            <!--USE DATA BINDING TO ADD LABEL TO SLIDER-->
+            <Slider Minimum="15" Maximum="40" Value="20" x:Name="fontSlider" Grid.Row="1" Grid.Column="1" ></Slider>
+
+
+            <Label Text="Sound Effects" HorizontalOptions="Start" FontSize="20" Grid.Row="2" Grid.Column="0" x:Name="sound"/>
+            <Switch HorizontalOptions="End" Grid.Row="2" Grid.Column="1" Scale="2"/>
+        </Grid>
     </VerticalStackLayout>
+    
+    
+    
 </ContentPage>
