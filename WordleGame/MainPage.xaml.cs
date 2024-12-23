@@ -42,6 +42,21 @@
         {
             await Navigation.PushAsync(new GamePage());
         }
+
+        private async void ruleButton_Clicked(object sender, EventArgs e)
+        {
+            
+        }
+
+        private async void settings_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new SettingsPage());
+        }
+
+        private async void statsButton_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new StatisticsPage());
+        }
     }
 
 }

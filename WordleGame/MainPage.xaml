@@ -13,9 +13,9 @@
             VerticalOptions="Center">
 
             <Button x:Name="playButton" Text="Play Game" WidthRequest="300" FontSize="30" Clicked="PlayButton_Clicked"></Button>
-            <Button x:Name="ruleButton" Text="Rules" WidthRequest="300" FontSize="30"></Button>
-            <Button x:Name="settings" Text="Settings" WidthRequest="300" FontSize="30"></Button>
-            <Button x:Name="statsButton" Text="Statistics" WidthRequest="300" FontSize="30"></Button>
+            <Button x:Name="ruleButton" Text="Rules" WidthRequest="300" FontSize="30" Clicked="ruleButton_Clicked"></Button>
+            <Button x:Name="settings" Text="Settings" WidthRequest="300" FontSize="30" Clicked="settings_Clicked"></Button>
+            <Button x:Name="statsButton" Text="Statistics" WidthRequest="300" FontSize="30" Clicked="statsButton_Clicked"></Button>
         </VerticalStackLayout>
     </ScrollView>
 
