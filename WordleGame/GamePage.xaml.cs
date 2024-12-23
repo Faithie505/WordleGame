@@ -1,3 +1,4 @@
+using Microsoft.Maui.Controls;
 using Microsoft.Maui.Controls.Compatibility;
 
 namespace WordleGame;
@@ -26,7 +27,7 @@ public partial class GamePage : ContentPage
     {
         await Navigation.PopAsync();
     }
-
+    //this methid randomly chooses one of the words in the list
     private void ChooseSecretWord()
     {
         var random = new Random();
@@ -56,10 +57,10 @@ public partial class GamePage : ContentPage
                 myEntry.Placeholder = " ";
                 myEntry.FontSize = 30;
                 myEntry.HorizontalTextAlignment = TextAlignment.Center;
-                myEntry.TextChanged += MoveToNext; 
+                myEntry.TextChanged += MoveToNext;
                 myEntry.MaxLength = 1;
                 myEntry.Completed += MoveToPrevious;
-               // myEntry.BackgroundColor = Colors.Black;
+                // myEntry.BackgroundColor = Colors.Black;
 
                 myBorder.StrokeThickness = 2;
                 myBorder.Stroke = Colors.Black;
@@ -93,26 +94,26 @@ public partial class GamePage : ContentPage
             count = 25;
         //if the entry was empty and the new text value isnt empty (if the user types something)
         if (string.IsNullOrEmpty(e.OldTextValue) && !string.IsNullOrEmpty(currentEntry.Text))
-       {
-            if(currentEntry == gameGrid.Children[count])//if the current enrty is the first entry in a row
+        {
+            if (currentEntry == gameGrid.Children[count])//if the current enrty is the first entry in a row
             {
-            gameGrid.Children[count+1].Focus(); // automatically focuses on the next entry for the user to type in
+                gameGrid.Children[count + 1].Focus(); // automatically focuses on the next entry for the user to type in
             }
-            else if (currentEntry == gameGrid.Children[count+1])//if the current entry is the second entry in a row
+            else if (currentEntry == gameGrid.Children[count + 1])//if the current entry is the second entry in a row
             {
-            gameGrid.Children[count+2].Focus(); // automatically focuses on the next entry for the user to type in
+                gameGrid.Children[count + 2].Focus(); // automatically focuses on the next entry for the user to type in
             }
             else if (currentEntry == gameGrid.Children[count + 2])//if the current entry is the third entry in a row
             {
-            gameGrid.Children[count+3].Focus(); // automatically focuses on the next entry for the user to type in
+                gameGrid.Children[count + 3].Focus(); // automatically focuses on the next entry for the user to type in
             }
-            else if (currentEntry == gameGrid.Children[count+ 3])//if the current enrty is the second entry in a row
+            else if (currentEntry == gameGrid.Children[count + 3])//if the current enrty is the second entry in a row
             {
-            gameGrid.Children[count+4].Focus(); // automatically focuses on the next entry for the user to type in
+                gameGrid.Children[count + 4].Focus(); // automatically focuses on the next entry for the user to type in
             }
             else if (currentEntry == gameGrid.Children[count + 4])//if the current enrty is the second entry in a row
             {
-            gameGrid.Children[count+4].Focus(); // automatically focuses on the next entry for the user to type in
+                gameGrid.Children[count + 4].Focus(); // automatically focuses on the next entry for the user to type in
             }
         }
     }
@@ -210,6 +211,83 @@ public partial class GamePage : ContentPage
 
     private void enterButton_Clicked(object sender, EventArgs e)
     {
+        string currentGuess = "";
+        Entry gridText;
+        //int count = 0;
 
+        if (rows == 0)
+            count = 0;
+        else if (rows == 1)
+            count = 5;
+        else if (rows == 2)
+            count = 10;
+        else if (rows == 3)
+            count = 15;
+        else if (rows == 4)
+            count = 20;
+        else if (rows == 5)
+            count = 25;
+        //if the grid isnt at 5 words???
+
+        //finds the text entered by user
+        for (int i = count; i < gameGrid.Children.Count; i++)
+        {
+            gridText = gameGrid.Children[i] as Entry;
+            currentGuess += gridText.Text;
+        }
+        GetColour(currentGuess);
+        rows++;
     }
-}
+
+    //checks the letters and gives them a colour
+    private async void GetColour(string guess)
+    {
+        string feedback = "a";
+        int theNumber = 0;
+        int j = 0;
+
+
+        Entry myEntry;
+        if (rows == 0)
+            theNumber = 0;
+        else if (rows == 1)
+            theNumber = 5;
+        else if (rows == 2)
+            theNumber = 10;
+        else if (rows == 3)
+            theNumber = 15;
+        else if (rows == 4)
+            theNumber = 20;
+
+
+        for (int i = theNumber; i < theNumber + 5; i++)
+        {
+            myEntry = gameGrid.Children[i] as Entry;
+            if (guess[j] == correctWord[j])
+            {
+                myEntry.BackgroundColor = Colors.Green;
+                myEntry.TextColor = Colors.White;
+                await Task.Delay(200);
+            }
+            else if (correctWord.Contains(guess[j]))
+            {
+                myEntry.BackgroundColor = Colors.Yellow;
+                myEntry.TextColor = Colors.White;
+                await Task.Delay(200);
+            }
+            else
+            {
+                myEntry.BackgroundColor = Colors.Gray;
+                myEntry.TextColor = Colors.White;
+                await Task.Delay(200);
+            }
+            j++;
+        }
+    }
+
+
+
+
+
+
+}//end of namespace
