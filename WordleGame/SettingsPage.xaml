@@ -7,7 +7,7 @@
        
 
         <Grid ColumnDefinitions="*, Auto" RowDefinitions="*, *, *, *, *" HorizontalOptions="Center" ColumnSpacing="300" Padding="20" RowSpacing="20">
-            <Label Text="Dark Mode" HorizontalOptions="Start"  Grid.Row="0" Grid.Column="0" x:Name="darkMode"/>
+            <Label Text="Dark Mode" HorizontalOptions="Start"  Grid.Row="0" Grid.Column="0" x:Name="darkMode" FontSize="{Binding Source={x:Reference fontSlider}, Path=Value}"/>
             <Switch HorizontalOptions="End" Grid.Row="0" Grid.Column="1" Scale="2" Toggled="Switch_Toggled" x:Name="darkSwitch"/>
 
             <Label Text="Font Size" HorizontalOptions="Start" FontSize="20" Grid.Row="1" Grid.Column="0" x:Name="fontSize"/>
