@@ -18,7 +18,7 @@
         private async void LogIn()
         {
             await Task.Delay(1000);
-            username = await DisplayPromptAsync("Log In", "Please enter your username", accept: "Enter");
+            //username = await DisplayPromptAsync("Log In", "Please enter your username", accept: "Enter");
         }
 
         private async void ButtonAnimations()

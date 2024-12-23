@@ -59,6 +59,7 @@ public partial class GamePage : ContentPage
     {
         //Takes in what ever entry the user is typing in
         var currentEntry = (Entry)sender;
+        currentEntry.Text?.ToUpper();
         //depending what row the user is on, makes count equal to the numer of the first column in that row
         if (rows == 0)
             count = 0;
