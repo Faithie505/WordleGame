@@ -1,3 +1,5 @@
+using Microsoft.Maui.Controls.Compatibility;
+
 namespace WordleGame;
 
 public partial class GamePage : ContentPage
@@ -7,11 +9,16 @@ public partial class GamePage : ContentPage
     Border myBorder = new Border();
     int rows = 0;
     int count;
+    //test list of words
+    List<String> words = new List<String>() { "apple", "spade", "chase", "range", "dance", "argue" };
+    //the right word
+    string correctWord = "";
 
     public GamePage()
     {
         InitializeComponent();
         StartGrid();//creates the grid of entries when the page loads
+        ChooseSecretWord();
     }
 
     //when the button is clicked, calls this method to go back to the home page
@@ -19,6 +26,17 @@ public partial class GamePage : ContentPage
     {
         await Navigation.PopAsync();
     }
+
+    private void ChooseSecretWord()
+    {
+        var random = new Random();
+        correctWord = words[random.Next(words.Count)];
+    }
+
+
+
+
+
 
     //creates a grid and each row and column has an entry
     private void StartGrid()

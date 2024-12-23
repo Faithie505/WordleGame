@@ -5,17 +5,14 @@
         //variables
         private string username = "";
 
-        //test list of words
-        List<String> words = new List<String>() { "apple", "spade", "chase", "range", "dance", "argue" };
-        //the right word
-        string correctWord = "";
+       
         public MainPage()
         {
             InitializeComponent();
             //calls logIn method when page loads
             LogIn();
             ButtonAnimations();
-            ChooseSecretWord();
+            
         }
 
 
@@ -27,11 +24,8 @@
         }
 
         //chooses a random word from the list and makes it the correct word
-        private void ChooseSecretWord()
-        {
-            var random = new Random();
-            correctWord = words[random.Next(words.Count)];
-        }
+        
+
 
         private async void ButtonAnimations()
         {
