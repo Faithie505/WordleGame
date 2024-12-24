@@ -4,14 +4,37 @@
     {
         //variables
         private string username = "";
+        private readonly ViewModel _viewModel;
+       // public ContentPage contentPage;
 
-       
+
+
         public MainPage()
         {
+            //contentPage = mainContentPage;
             InitializeComponent();
+            //sets the databinding to the viewmodel class
+            _viewModel = new ViewModel();
+            BindingContext = _viewModel;
+            //test();
             //calls logIn method when page loads
             LogIn();
             ButtonAnimations();
+
+            //getColour();
+
+
+
+
+
+        }
+
+        private void test()
+        {
+           // Preferences.Set("fontValue", 5);
+            //_viewModel.SaveSettings();
+            _viewModel.GetSettings();
+            DisplayAlert("alert", "alert", "no");
             
         }
 
@@ -56,6 +79,52 @@
         private async void statsButton_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new StatisticsPage());
+        }
+
+        public void getColour()
+        {
+            if (_viewModel.IsDarkTheme == true)
+            {
+                //this.BackgroundColor = Colors.White;
+                playButton.Text = "true!";
+                scrollView.BackgroundColor = Colors.Black;
+            }
+            else if (_viewModel.IsDarkTheme == false)
+            {
+                playButton.Text = "false!";
+                scrollView.BackgroundColor = Colors.White;
+
+            }
+        }
+
+        private void ContentPage_Appearing(object sender, EventArgs e)
+        {
+            // test();
+            //Preferences.Get("FontSize", 0);
+
+            playButton.FontSize = Preferences.Get("FontSize", 0.0);
+            statsButton.FontSize = Preferences.Get("FontSize", 0.0);
+            settings.FontSize = Preferences.Get("FontSize", 0.0);
+            ruleButton.FontSize = Preferences.Get("FontSize", 0.0);
+
+           // _viewModel.SaveSettings();
+            _viewModel.GetSettings();
+
+
+            if (_viewModel.IsDarkTheme == true)
+            {
+                //this.BackgroundColor = Colors.White;
+                playButton.Text = "true!";
+                scrollView.BackgroundColor = Colors.Black;
+            }
+            else if (_viewModel.IsDarkTheme == false)
+            {
+                playButton.Text = "false!";
+                scrollView.BackgroundColor = Colors.White;
+
+            }
+
+           
         }
     }
 

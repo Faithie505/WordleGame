@@ -2,22 +2,37 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WordleGame.SettingsPage"
-             Title="SettingsPage">
+             Title="SettingsPage"
+             x:Name="settingContentPage"
+             Appearing="ContentPage_Appearing">
     <VerticalStackLayout x:Name="verticalLayout">
+
+        <Button Text="Back" Clicked="backButton_Clicked"></Button>
+
        
 
-        <Grid ColumnDefinitions="*, Auto" RowDefinitions="*, *, *, *, *" HorizontalOptions="Center" ColumnSpacing="300" Padding="20" RowSpacing="20">
-            <Label Text="Dark Mode" HorizontalOptions="Start"  Grid.Row="0" Grid.Column="0" x:Name="darkMode" FontSize="{Binding Source={x:Reference fontSlider}, Path=Value}"/>
-            <Switch HorizontalOptions="End" Grid.Row="0" Grid.Column="1" Scale="2" Toggled="Switch_Toggled" x:Name="darkSwitch"/>
+        <Grid ColumnDefinitions="*, *" RowDefinitions="*, *, *, *, *" HorizontalOptions="Center" ColumnSpacing="300" Padding="20" RowSpacing="20">
+           <!--DARK MODE SETTINGS-->
+            <!--FontSize="{Binding Source={x:Reference fontSlider}, Path=Value}"-->
+            <Label Text="Dark Mode" HorizontalOptions="Start"  Grid.Row="0" Grid.Column="0" x:Name="darkMode" FontSize="{Binding FontSize}"/>
+            <Switch HorizontalOptions="End" Grid.Row="0" Grid.Column="1" Scale="2" IsToggled="{Binding IsDarkTheme}"  x:Name="darkSwitch" />
 
-            <Label Text="Font Size" HorizontalOptions="Start" FontSize="20" Grid.Row="1" Grid.Column="0" x:Name="fontSize"/>
+            <!--FONT SIZE SETTINGS-->
+            <Label Text="Font Size" HorizontalOptions="Start" Grid.Row="1" Grid.Column="0" x:Name="fontSize" FontSize="{Binding FontSize}"/>
             <!--USE DATA BINDING TO ADD LABEL TO SLIDER-->
-            <Slider Minimum="15" Maximum="40" Value="20" x:Name="fontSlider" Grid.Row="1" Grid.Column="1" ></Slider>
+            <Slider Minimum="15" Maximum="40" x:Name="fontSlider" Grid.Row="1" Grid.Column="1" Value="{Binding FontSize}"></Slider>
 
-
-            <Label Text="Sound Effects" HorizontalOptions="Start" FontSize="20" Grid.Row="2" Grid.Column="0" x:Name="sound"/>
+            <!--MUSIC SETTINGS-->
+            <Label Text="Music" HorizontalOptions="Start" Grid.Row="2" Grid.Column="0" x:Name="music" FontSize="{Binding FontSize}" />
             <Switch HorizontalOptions="End" Grid.Row="2" Grid.Column="1" Scale="2"/>
+
+            <!--SOUND SETTINGS-->
+            <Label Text="Sound Effects" HorizontalOptions="Start" Grid.Row="3" Grid.Column="0" x:Name="sound" FontSize="{Binding FontSize}"/>
+            <Switch HorizontalOptions="End" Grid.Row="3" Grid.Column="1" Scale="2"/>
         </Grid>
+
+        <!-- Save Button -->
+        <Button Text="Save Settings" Clicked="SaveButton_Clicked" />
     </VerticalStackLayout>
     
     

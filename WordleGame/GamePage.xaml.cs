@@ -108,6 +108,7 @@ public partial class GamePage : ContentPage
         getRow();
         //Takes in what ever entry the user is typing in
         var currentEntry = (Entry)sender;
+        Preferences.Set("SavedEntryText", currentEntry.Text); // "SavedEntryText" is the key
         //makes the var parentFrame equal to the frame that contains the entry in the grid
         var parentFrame = currentEntry.Parent as Frame;
 
