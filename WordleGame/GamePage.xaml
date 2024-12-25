@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WordleGame.GamePage"
-             Title="GamePage">
+             Title="GamePage"
+             Appearing="gameContentPage">
     <ScrollView>
     <VerticalStackLayout>
         <Label 
@@ -13,7 +14,15 @@
             <Button x:Name="backButton" Clicked="backButton_Clicked"></Button>
             <Label x:Name="tester" Text="Test"></Label>
 
-        <!--Creates the grid where the entries will be placed-->
+            <HorizontalStackLayout Spacing="20" HorizontalOptions="Center">
+                <Grid RowDefinitions="*" ColumnDefinitions="*, *"></Grid>
+                <Label x:Name="TimerLabel" Text="Time: " FontSize="30"></Label>
+                <Label x:Name="score" Text="Score: 0" FontSize="30"></Label>
+            </HorizontalStackLayout>
+
+            <Button x:Name="playAgain" Text="Play Again!" IsVisible="False" Clicked="playAgain_Clicked"></Button>
+
+            <!--Creates the grid where the entries will be placed-->
         <Grid x:Name="gameGrid"  HeightRequest="300" WidthRequest="250"
 HorizontalOptions="Center" VerticalOptions="Center" RowSpacing="5" ColumnSpacing="5">
 

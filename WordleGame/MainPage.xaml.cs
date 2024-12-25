@@ -20,13 +20,6 @@
             //calls logIn method when page loads
             LogIn();
             ButtonAnimations();
-
-            //getColour();
-
-
-
-
-
         }
 
         private void test()
@@ -81,22 +74,6 @@
             await Navigation.PushAsync(new StatisticsPage());
         }
 
-        public void getColour()
-        {
-            if (_viewModel.IsDarkTheme == true)
-            {
-                //this.BackgroundColor = Colors.White;
-                playButton.Text = "true!";
-                scrollView.BackgroundColor = Colors.Black;
-            }
-            else if (_viewModel.IsDarkTheme == false)
-            {
-                playButton.Text = "false!";
-                scrollView.BackgroundColor = Colors.White;
-
-            }
-        }
-
         private void ContentPage_Appearing(object sender, EventArgs e)
         {
             // test();
@@ -113,13 +90,10 @@
 
             if (_viewModel.IsDarkTheme == true)
             {
-                //this.BackgroundColor = Colors.White;
-                playButton.Text = "true!";
                 scrollView.BackgroundColor = Colors.Black;
             }
             else if (_viewModel.IsDarkTheme == false)
             {
-                playButton.Text = "false!";
                 scrollView.BackgroundColor = Colors.White;
 
             }
