@@ -80,11 +80,15 @@ public partial class GamePage : ContentPage
         TimerLabel.Text = $" Time: {minutes:D2}:{seconds:D2}";
     }
 
+    //when the timer reaches 0
     private void OnTimerFinished()
     {
         // Handle when the timer reaches zero (e.g., show a message)
         //TimerLabel.Text = "Time's up!";
-    }
+        //DisplayAlert("Game Over", "Time's up! You didn't guess the word in time.", "OK");
+       // gameGrid.IsEnabled = false;
+        //playAgain.IsVisible = true;
+    } 
 
     //this methid randomly chooses one of the words in the list
     private async void GetSecretWord()
@@ -101,9 +105,9 @@ public partial class GamePage : ContentPage
             chooseNewWord = false;
 
         
-        theWord = Preferences.Get("SecretWord", correctWord);
-        Preferences.Set("SecretWord", correctWord);
-        correctWord = Preferences.Get("SecretWord", "word");
+        //theWord = Preferences.Get("SecretWord", correctWord);
+       // Preferences.Set("SecretWord", correctWord);
+       // correctWord = Preferences.Get("SecretWord", "word");
         backButton.Text = correctWord; //remove N.B N/B
 
 
@@ -119,7 +123,7 @@ public partial class GamePage : ContentPage
         }
 
         // Optionally, save the remaining time to Preferences or a similar storage
-        Preferences.Set("RemainingTime", _secondsRemaining);
+        //Preferences.Set("RemainingTime", _secondsRemaining);
         await Navigation.PopAsync();
     }
 
@@ -150,6 +154,7 @@ public partial class GamePage : ContentPage
                 //creates a frame that contains the entry insinde and has a border
                 frame.Content = myEntry;
                 frame.BorderColor = Colors.Gray;
+                frame.BackgroundColor = Colors.White;
                 frame.CornerRadius = 0;
                 frame.Padding = 0;
                 frame.Margin = 0;
@@ -186,7 +191,7 @@ public partial class GamePage : ContentPage
         getRow();
         //Takes in what ever entry the user is typing in
         var currentEntry = (Entry)sender;
-        Preferences.Set("SavedEntryText", currentEntry.Text); // "SavedEntryText" is the key
+        
         //makes the var parentFrame equal to the frame that contains the entry in the grid
         var parentFrame = currentEntry.Parent as Frame;
 
@@ -247,62 +252,87 @@ public partial class GamePage : ContentPage
 
     private void OnKeyClicked(object sender, EventArgs e)
     {
-        /*getRow();
+        getRow();
         var button = sender as Button;
-        Entry a = new Entry();
-        Entry b = new Entry();
-        Entry c = new Entry();
-        Entry d = new Entry();
-        Entry f = new Entry();
+        Frame a = new Frame();
+        Frame b = new Frame();
+        Frame c = new Frame();
+        Frame d = new Frame();
+        Frame f = new Frame();
 
-        
+        Entry g = new Entry();
+        Entry h = new Entry();
+        Entry i = new Entry();
+        Entry j = new Entry();
+        Entry k = new Entry();
 
 
-        a = gameGrid.Children[count] as Entry;
-        b = gameGrid.Children[count + 1] as Entry;
-        c = gameGrid.Children[count + 2] as Entry;
-        d = gameGrid.Children[count + 3] as Entry;
-        f = gameGrid.Children[count + 4] as Entry;
-        
+        // Frame frame = new Frame();
+        //frame =gameGrid.Children as Frame;
+        //Entry entry = new Entry();
+        if (gameGrid.Children is Frame frame)
+            if (frame.Content is Entry entry)
+            {
+                if (entry.IsFocused == true)//if the current entry that is being typed in is entry (user backspaces and wants to rewrite leytter)
+                {
+                    tester.Text = "In the Entry!";
+                    entry.Text = button.Text; //whatever letter is in the button is saved in the entry
+                }
+            }
+
+        //making the frames equal to what row/column the user is on
+        a = gameGrid.Children[count] as Frame;
+        b = gameGrid.Children[count + 1] as Frame;
+        c = gameGrid.Children[count + 2] as Frame;
+        d = gameGrid.Children[count + 3] as Frame;
+        f = gameGrid.Children[count + 4] as Frame;
+
+        //making the contents of the framse in ro a entry
+        g = a.Content as Entry;
+        h = b.Content as Entry;
+        i = c.Content as Entry;
+        j = d.Content as Entry;
+        k = f.Content as Entry;
+
 
 
         if (button != null)
         {
             // Append the button text (number) to the Entry text
             //NumberEntry.Text += button.Text;
-            if (a.Text == null)
+            if (g.Text == null || g.Text == string.Empty)
             {
-                a.Text = button.Text;
-                b.Focus();
+                g.Text = button.Text;
+                h.Focus();
             }
 
-            else if (b.Text == null || b.Text == string.Empty)
+            else if (h.Text == null || h.Text == string.Empty)
             {
-                b.Text = button.Text;
-                c.Focus();
+                h.Text = button.Text;
+                i.Focus();
             }
-            else if (c.Text == null || c.Text == string.Empty)
+            else if (i.Text == null || i.Text == string.Empty)
             {
-                c.Text = button.Text;
-                d.Focus();
+                i.Text = button.Text;
+                j.Focus();
             }
-            else if (d.Text == null || d.Text == string.Empty)
+            else if (j.Text == null || j.Text == string.Empty)
             {
-                d.Text = button.Text;
-                f.Focus();
+                j.Text = button.Text;
+                k.Focus();
             }
-            else if (f.Text == null || f.Text == string.Empty)
+            else if (k.Text == null || k.Text == string.Empty)
             {
-                f.Text = button.Text;
-                f.Focus();
+                k.Text = button.Text;
+                k.Focus();
             }
-        }*/
+
+
+        }
     }
 
     private void enterButton_Clicked(object sender, EventArgs e)
     {
-        
-
         getRow();
 
         //var theWord = gameGrid.Children.
@@ -310,7 +340,6 @@ public partial class GamePage : ContentPage
         string currentGuess = "";
         Entry gridText = new Entry();
         Entry theEntry = new Entry();
-        Frame framing;
         //var parentFrame = currentEntry.Parent as Frame;
 
 
@@ -375,7 +404,7 @@ public partial class GamePage : ContentPage
             if (guess[j] == correctWord[j])
             {
                 inEntry.TextColor = Colors.White;
-                frame.BackgroundColor = Colors.Green;
+                frame.BackgroundColor = Color.FromArgb("#70ff6b"); //green
                 gameScore += 5;
                 checkGameOverArray[j] = 1;//if the letter is right, saves number as one
 
@@ -387,7 +416,7 @@ public partial class GamePage : ContentPage
             else if (correctWord.Contains(guess[j]))
             {
                 inEntry.TextColor = Colors.White;
-                frame.BackgroundColor = Colors.Yellow;
+                frame.BackgroundColor = Color.FromArgb("#fff830");  //yellow
                 gameScore += 2;
                 checkGameOverArray[j] = 0;//if not, saves as 0
                // myEntry.TextColor = Colors.White;
@@ -396,7 +425,7 @@ public partial class GamePage : ContentPage
             else
             {
                 inEntry.TextColor = Colors.White;
-                frame.BackgroundColor = Colors.Gray;
+                frame.BackgroundColor = Color.FromArgb("#363532"); //gray
                 gameScore += 0;
                 checkGameOverArray[j] = 0;//if not, saves as 0
 
@@ -414,22 +443,11 @@ public partial class GamePage : ContentPage
         }
     }
 
-    //when the content page appears (when the page loads), calls this method
-    private void gameContentPage(object sender, EventArgs e)
-    {
-        // Load the remaining time from Preferences
-        _secondsRemaining = Preferences.Get("RemainingTime", 60); // Default to 60 seconds if not saved
-
-        // If the timer was paused, resume it
-        if (_secondsRemaining > 0)
-        {
-            _timer.Start();
-        }
-    }
+   
 
     private void EndGame()
     {
-        
+        //if all the words are right, displays the play again button and sets check end to true
         if (checkGameOverArray[0] == 1&& checkGameOverArray[1] == 1&& checkGameOverArray[2] == 1&& checkGameOverArray[3] == 1&& checkGameOverArray[4] == 1) //if the array contains only 1s, that means all the letters in a row were correct
         {
             checkEnd = true;
@@ -489,7 +507,88 @@ public partial class GamePage : ContentPage
         _secondsRemaining = 120;
         UpdateTimerDisplay();
         StartGrid();
+        //when a new game is being played, saves the details 
+        for (int i = 0; i < gameGrid.Children.Count; i++)
+        {
+            if (gameGrid.Children[i] is Frame frame)
+            {
+                if (frame.Content is Entry entry)
+                {
+                    // Save text of each entry
+                    Preferences.Set($"entryText_{i}", entry.Text);
+                    // Preferences.Set($"frameColor_{i}", frame.BackgroundColor.ToHex()); // Save frame color
+
+                }
+            }
+        }
+    }
 
 
+    
+
+
+
+
+    //when the content page appears (when the page loads), calls this method
+    private void gameContentPage(object sender, EventArgs e)
+    {
+        // Load the remaining time from Preferences
+       // _secondsRemaining = Preferences.Get("RemainingTime", 60); // Default to 60 seconds if not saved
+
+        // If the timer was paused, resume it
+        if (_secondsRemaining > 0)
+        {
+            _timer.Start();
+        }
+
+
+        // Restore Entry Texts and Frame Colors
+        for (int i = 0; i < gameGrid.Children.Count; i++)
+        {
+            if (gameGrid.Children[i] is Frame frame)
+            {
+                if (frame.Content is Entry entry)
+                {
+                    //retrivese the saved text
+                    string savedText = Preferences.Get($"entryText_{i}", string.Empty);
+                    entry.Text = savedText;
+
+                    // Retrieve and set the saved frame color
+                   string savedColor = Preferences.Get($"frameColor_{i}", Colors.Pink.ToHex());
+                   frame.BackgroundColor = Color.FromArgb(savedColor);
+
+                    // Restore other game state variables
+                    gameScore = Preferences.Get("gameScore", 0);
+                    rows = Preferences.Get("rows", 0);
+                    //_secondsRemaining = Preferences.Get("secondsRemaining", 120);
+                    // checkEnd = Preferences.Get("checkEnd", false);
+
+                    test.Text = frame.BackgroundColor.ToHex();
+
+                }
+            }
+        }
+        
+    }
+    //when the game page disappears (when the user switches tio another page)
+    public void gamePageDisappearing(object sender, EventArgs e)
+    {
+        for (int i = 0; i < gameGrid.Children.Count; i++)
+        {
+            if (gameGrid.Children[i] is Frame frame)
+            {
+                if (frame.Content is Entry entry)
+                { 
+                    // Save text of each entry
+                   Preferences.Set($"entryText_{i}", entry.Text);
+                  // Preferences.Set($"frameColor_{i}", frame.BackgroundColor.ToHex()); // Save frame color
+
+                }
+            }
+        }
+        Preferences.Set("gameScore", gameScore);
+        Preferences.Set("rows", rows);
+        //Preferences.Set("secondsRemaining", _secondsRemaining);
+        //Preferences.Set("checkEnd", checkEnd);
     }
 }//end of namespace

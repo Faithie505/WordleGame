@@ -1,4 +1,6 @@
-﻿namespace WordleGame
+﻿
+
+namespace WordleGame
 {
     public partial class MainPage : ContentPage
     {
@@ -98,7 +100,10 @@
 
             }
 
-           
+            
+
+
+
         }
     }
 
