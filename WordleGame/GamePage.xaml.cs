@@ -1,3 +1,4 @@
+
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Controls.Compatibility;
 
@@ -22,7 +23,12 @@ public partial class GamePage : ContentPage
     bool chooseNewWord = true;
     bool end = false;
 
+    string correctWordTwo;
+
     string theWord = "";
+
+    bool newGame = true; //checks to see if the player is playing a new game, and if so, it is set to treu and a new word is chosen
+    private ViewModel _viewModel;
 
 
 
@@ -34,6 +40,10 @@ public partial class GamePage : ContentPage
     {
         Words = new GetWordList();
         InitializeComponent();
+
+        _viewModel = new ViewModel();
+        BindingContext = _viewModel; //sets the data binding to the ViewModel object 
+
         StartGrid();//creates the grid of entries when the page loads
         GetSecretWord();//choses one word from the list of words
         getRow(); //finds which row of the gridthe user is on 
@@ -93,21 +103,28 @@ public partial class GamePage : ContentPage
     //this methid randomly chooses one of the words in the list
     private async void GetSecretWord()
     {
-        await Words.GetWords();//
-        await Words.makeWordList();//
-        words = Words.wordList;
-        //creatse a random variable
-        var random = new Random();
 
-        
+        await Words.GetWords();
+        await Words.makeWordList();
+        //makes the list words equal to the list wordlist, which stores the words in the ViewModel
+        words = Words.wordList;
+        //Preferences.Set("NewWordBool", newGame); //saves this to preferences
+        if (newGame == true)
+        {
+            //calls the methods in the ViewModel page to create a list of 3000 5 letter words using the github api
+            
+            //creatse a random variable
+            var random = new Random();
             //choses the word randomly using the variable and makes it uppercase
             correctWord = words[random.Next(words.Count)].ToUpper();
-            chooseNewWord = false;
-
+            
+            //chooseNewWord = false;
+            newGame = false; //sets it to false so it doesnt change the word when the user goes to a different page
+        }
         
-        //theWord = Preferences.Get("SecretWord", correctWord);
-       // Preferences.Set("SecretWord", correctWord);
-       // correctWord = Preferences.Get("SecretWord", "word");
+            
+        
+
         backButton.Text = correctWord; //remove N.B N/B
 
 
@@ -145,7 +162,7 @@ public partial class GamePage : ContentPage
                 myEntry = new Entry();
                 frame = new Frame();
                 myEntry.Placeholder = " ";
-                myEntry.FontSize = 20;
+                myEntry.FontSize = Preferences.Get("FontSize", 0.0);
                 myEntry.HorizontalTextAlignment = TextAlignment.Center;
                 myEntry.TextChanged += MoveToNext;
                 myEntry.MaxLength = 1;
@@ -473,12 +490,16 @@ public partial class GamePage : ContentPage
     {
         end = true;
         gameGrid.IsEnabled = true;
+        
         Frame theFrame = new Frame();
         Entry theEntry = new Entry();
 
         gameGrid.Children.Clear();
         gameGrid.ColumnDefinitions.Clear();
         gameGrid.RowDefinitions.Clear();
+        //when the game is reset, sets new game to true, allowign a new word to be chosen foom the word list
+        Preferences.Set("NewWordBool", true);
+        newGame = Preferences.Get("NewWordBool", newGame);
         //theEntry.TextChanged = onTex
 
         /*for (int i =0; i<gameGrid.Children.Count; i++)
@@ -540,6 +561,8 @@ public partial class GamePage : ContentPage
         {
             _timer.Start();
         }
+        newGame = Preferences.Get("NewWordBool", false); // now when the page is reloaded, the variable will be set to false and a new word willnot be chosen
+        correctWord = Preferences.Get("NewWord", correctWord);
 
 
         // Restore Entry Texts and Frame Colors
@@ -549,6 +572,8 @@ public partial class GamePage : ContentPage
             {
                 if (frame.Content is Entry entry)
                 {
+                    
+
                     //retrivese the saved text
                     string savedText = Preferences.Get($"entryText_{i}", string.Empty);
                     entry.Text = savedText;
@@ -573,6 +598,7 @@ public partial class GamePage : ContentPage
     //when the game page disappears (when the user switches tio another page)
     public void gamePageDisappearing(object sender, EventArgs e)
     {
+
         for (int i = 0; i < gameGrid.Children.Count; i++)
         {
             if (gameGrid.Children[i] is Frame frame)
@@ -586,6 +612,12 @@ public partial class GamePage : ContentPage
                 }
             }
         }
+
+        Preferences.Set("NewWordBool", newGame); 
+
+        //correctWordTwo = correctWord;
+        Preferences.Set("NewWord", correctWord); //saves this to preferences
+
         Preferences.Set("gameScore", gameScore);
         Preferences.Set("rows", rows);
         //Preferences.Set("secondsRemaining", _secondsRemaining);

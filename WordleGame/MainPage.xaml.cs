@@ -6,7 +6,7 @@ namespace WordleGame
     {
         //variables
         private string username = "";
-        private readonly ViewModel _viewModel;
+        private ViewModel _viewModel;
        // public ContentPage contentPage;
 
 

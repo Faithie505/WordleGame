@@ -2,7 +2,6 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WordleGame.MainPage"
-            
              xmlns:local="clr-namespace:WordleGame"
              Appearing="ContentPage_Appearing"
              
@@ -15,7 +14,7 @@
             HorizontalOptions="Center"
             VerticalOptions="Center">
 
-            <Button x:Name="playButton" Text="Play Game" WidthRequest="300" FontSize="{Binding FontSize}" Clicked="PlayButton_Clicked"></Button>
+            <Button x:Name="playButton" Text="Play Game" WidthRequest="300" Clicked="PlayButton_Clicked"></Button>
             <Button x:Name="ruleButton" Text="Rules" WidthRequest="300" FontSize="{Binding FontSize}" Clicked="ruleButton_Clicked"></Button>
             <Button x:Name="settings" Text="Settings" WidthRequest="300" FontSize="{Binding FontSize}" Clicked="settings_Clicked"></Button>
             <Button x:Name="statsButton" Text="Statistics" WidthRequest="300" FontSize="{Binding FontSize}" Clicked="statsButton_Clicked"></Button>

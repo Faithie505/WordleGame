@@ -20,7 +20,7 @@
             <!--FONT SIZE SETTINGS-->
             <Label Text="Font Size" HorizontalOptions="Start" Grid.Row="1" Grid.Column="0" x:Name="fontSize" FontSize="{Binding FontSize}"/>
             <!--USE DATA BINDING TO ADD LABEL TO SLIDER-->
-            <Slider Minimum="15" Maximum="40" x:Name="fontSlider" Grid.Row="1" Grid.Column="1" Value="{Binding FontSize}"></Slider>
+            <Slider Minimum="15" Maximum="30" x:Name="fontSlider" Grid.Row="1" Grid.Column="1" Value="{Binding FontSize}"></Slider>
 
             <!--MUSIC SETTINGS-->
             <Label Text="Music" HorizontalOptions="Start" Grid.Row="2" Grid.Column="0" x:Name="music" FontSize="{Binding FontSize}" />
