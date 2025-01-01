@@ -1,6 +1,7 @@
 
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Controls.Compatibility;
+using System.Diagnostics.Metrics;
 
 namespace WordleGame;
 
@@ -12,7 +13,7 @@ public partial class GamePage : ContentPage
     Frame frame;
     int rows = 0;
     int count;
-    //test list of words
+    // list of words
     List<String> words = new List<string>(); 
     string correctWord = "";
     private GetWordList Words;
@@ -22,6 +23,7 @@ public partial class GamePage : ContentPage
     bool checkEnd = false; //if it is false, the game continues. If it is true, the game ends
     bool chooseNewWord = true;
     bool end = false;
+    int correctColour;
 
     string correctWordTwo;
 
@@ -44,11 +46,14 @@ public partial class GamePage : ContentPage
         _viewModel = new ViewModel();
         BindingContext = _viewModel; //sets the data binding to the ViewModel object 
 
+
         StartGrid();//creates the grid of entries when the page loads
         GetSecretWord();//choses one word from the list of words
         getRow(); //finds which row of the gridthe user is on 
+        setBackgroundColour();
 
-        
+
+
 
 
         //TIMER STUFF
@@ -62,6 +67,65 @@ public partial class GamePage : ContentPage
 
         // Update the UI with the initial time
         UpdateTimerDisplay();
+    }
+
+    private void setBackgroundColour() //the background colour and text colour change in this method depending on if the dark mode switch is toggled or not
+    {
+        if (_viewModel.IsDarkTheme == true) //if the switch is toggled to dark mode
+        {
+            gameScrollView.BackgroundColor = Color.FromArgb("#181818");
+            TimerLabel.TextColor = Colors.White;
+            score.TextColor = Colors.White;
+            for (int i = 0; i < gameGrid.Children.Count; i++)
+            {
+                if (gameGrid.Children[i] is Frame frame)
+                {
+                    if (frame.Content is Entry entry)
+                    {
+                        entry.TextColor = Colors.White;
+                        
+                        entry.BackgroundColor = Color.FromArgb("#181818");
+                        frame.BackgroundColor = Color.FromArgb("#181818");
+
+                    }
+                }
+            }
+            //chnages the background colour of all the keyboard buttons to light gray if the dark mode switch is on
+            for (int i = 0; i < buttonGrid.Children.Count; i++)
+            {
+                if (buttonGrid.Children[i] is Button button)
+                {
+                    button.BackgroundColor = Colors.Gray;
+                }
+            }
+        }
+        else if(_viewModel.IsDarkTheme == false)
+        {
+            gameScrollView.BackgroundColor = Colors.White;
+            TimerLabel.TextColor = Colors.Black;
+            score.TextColor = Colors.Black;
+            for (int i = 0; i < gameGrid.Children.Count; i++)
+            {
+                if (gameGrid.Children[i] is Frame frame)
+                {
+                    if (frame.Content is Entry entry)
+                    {
+                        entry.TextColor = Colors.Black;
+
+                        entry.BackgroundColor = Colors.White;
+                        frame.BackgroundColor = Colors.White;
+                    }
+                }
+            }
+
+            for(int i = 0; i< buttonGrid.Children.Count; i++)
+            {
+                if(buttonGrid.Children[i] is Button button)
+                {
+                    button.BackgroundColor = Colors.LightGray;
+                }
+            }
+        }
     }
     private void OnTimerElapsed(object sender, System.Timers.ElapsedEventArgs e)
     {
@@ -121,9 +185,6 @@ public partial class GamePage : ContentPage
             //chooseNewWord = false;
             newGame = false; //sets it to false so it doesnt change the word when the user goes to a different page
         }
-        
-            
-        
 
         backButton.Text = correctWord; //remove N.B N/B
 
@@ -243,6 +304,7 @@ public partial class GamePage : ContentPage
     {
         getRow();
         var currentEntry = sender as Entry;
+
         var parentFrame = currentEntry.Parent as Frame;
        
         if (currentEntry.Text == null || currentEntry.Text == string.Empty)
@@ -369,17 +431,22 @@ public partial class GamePage : ContentPage
                 // Access the Content of the Frame (which is the Entry)
                 if (frame.Content is Entry entry)
                 {
-                    gridText.Text += entry.Text;
+                    
+                    
+                        gridText.Text += entry.Text; //each text in the entries in the grid is saved into gridText (even empty entries)
+                    
                         
                 }
                 
             }
         }
 
-        for(int i = count; i<count +5; i++)
+        for(int i = count; i<count +5; i++) //e.g. if the user is on the second row of the grid, count will be 5 (the 6th entry box which is the first entry box in the 2nd row)
         {
-            currentGuess += gridText.Text[i];
-            tester.Text = currentGuess;
+            
+                currentGuess += gridText.Text[i];
+                tester.Text = currentGuess;
+            
         }
 
 
@@ -397,7 +464,7 @@ public partial class GamePage : ContentPage
 
         if(count <=21)
         {
-            gameGrid.Children[count + 5].Focus();
+            gameGrid.Children[count + 5].Focus(); //focuses on the next columns
         }
         
 
@@ -407,7 +474,7 @@ public partial class GamePage : ContentPage
     private async void GetColour(string guess)
     {
         getRow();
-        string feedback = "a";
+        string letter = "";
         int j = 0;
         Entry inEntry;
 
@@ -421,9 +488,12 @@ public partial class GamePage : ContentPage
             if (guess[j] == correctWord[j])
             {
                 inEntry.TextColor = Colors.White;
-                frame.BackgroundColor = Color.FromArgb("#70ff6b"); //green
+                inEntry.BackgroundColor = Color.FromArgb("#6ca965");
+                frame.BackgroundColor = Color.FromArgb("#6ca965"); //green
                 gameScore += 5;
+                correctColour = 0;
                 checkGameOverArray[j] = 1;//if the letter is right, saves number as one
+                
 
                 //frame.TextColor = Colors.White;
                 await Task.Delay(200);
@@ -433,30 +503,67 @@ public partial class GamePage : ContentPage
             else if (correctWord.Contains(guess[j]))
             {
                 inEntry.TextColor = Colors.White;
-                frame.BackgroundColor = Color.FromArgb("#fff830");  //yellow
+                frame.BackgroundColor = Color.FromArgb("#c8b653");  //yellow
+                inEntry.BackgroundColor = Color.FromArgb("#c8b653");
                 gameScore += 2;
+                correctColour = 1;
                 checkGameOverArray[j] = 0;//if not, saves as 0
-               // myEntry.TextColor = Colors.White;
+                
+                // myEntry.TextColor = Colors.White;
                 await Task.Delay(200);
             }
             else
             {
                 inEntry.TextColor = Colors.White;
-                frame.BackgroundColor = Color.FromArgb("#363532"); //gray
+                frame.BackgroundColor = Color.FromArgb("#2f303a"); //gray
+                inEntry.BackgroundColor = Color.FromArgb("#2f303a");
+                correctColour = 2;
+
                 gameScore += 0;
                 checkGameOverArray[j] = 0;//if not, saves as 0
 
                 //myEntry.TextColor = Colors.White;
                 await Task.Delay(200);
             }
+            letter = guess[j].ToString(); //saves the letter that is being chceked
             j++;
             score.Text = "SCORE: "+ gameScore.ToString();
+
+            changeButtonColour(letter); //calls method
+
             EndGame();
         }
 
         if(checkEnd == true)
         {
             gameGrid.IsEnabled = false;
+        }
+    }
+
+    private void changeButtonColour(string letter) //this meathod changes the colour of the text button depending on the correct letter
+    {
+        for (int i = 0; i < buttonGrid.Children.Count; i++) //loops for all the buttons in the grid
+        {
+            if (buttonGrid.Children[i] is Button button) //this is true
+            {
+                if(button.Text == letter) //if the text in the button is the same as the text the user entered i.e. 'A'
+                {
+                    if(correctColour == 0)
+                    {
+                        button.BackgroundColor = Color.FromArgb("6ca965"); //if the letter is correct in the right palce
+                    }
+                    else if (correctColour == 1)
+                    {
+                        button.BackgroundColor = Color.FromArgb("#c8b653");//if the letter is correct in the wrong place
+                    }
+                    else if (correctColour == 2)
+                    {
+                        button.BackgroundColor = Color.FromArgb("#2f303a");//if the letter is not correct
+                    }
+
+
+                }
+            }
         }
     }
 
@@ -514,11 +621,6 @@ public partial class GamePage : ContentPage
 
         }*/
 
-        
-      
-
-        //gameGrid.Children[0].Focus();
-
 
         chooseNewWord = true;
         rows = 0;
@@ -528,6 +630,7 @@ public partial class GamePage : ContentPage
         _secondsRemaining = 120;
         UpdateTimerDisplay();
         StartGrid();
+        setBackgroundColour();
         //when a new game is being played, saves the details 
         for (int i = 0; i < gameGrid.Children.Count; i++)
         {
@@ -542,6 +645,7 @@ public partial class GamePage : ContentPage
                 }
             }
         }
+        
     }
 
 
@@ -561,10 +665,11 @@ public partial class GamePage : ContentPage
         {
             _timer.Start();
         }
+        
         newGame = Preferences.Get("NewWordBool", false); // now when the page is reloaded, the variable will be set to false and a new word willnot be chosen
         correctWord = Preferences.Get("NewWord", correctWord);
 
-
+        setBackgroundColour();
         // Restore Entry Texts and Frame Colors
         for (int i = 0; i < gameGrid.Children.Count; i++)
         {
@@ -572,15 +677,16 @@ public partial class GamePage : ContentPage
             {
                 if (frame.Content is Entry entry)
                 {
-                    
+
+                    frame.BorderColor = Colors.Gray;
 
                     //retrivese the saved text
                     string savedText = Preferences.Get($"entryText_{i}", string.Empty);
                     entry.Text = savedText;
 
                     // Retrieve and set the saved frame color
-                   string savedColor = Preferences.Get($"frameColor_{i}", Colors.Pink.ToHex());
-                   frame.BackgroundColor = Color.FromArgb(savedColor);
+                   string savedColor = Preferences.Get($"frameColor_{i}", entry.BackgroundColor.ToArgbHex());
+                   entry.BackgroundColor = Color.FromArgb(savedColor);
 
                     // Restore other game state variables
                     gameScore = Preferences.Get("gameScore", 0);
@@ -588,12 +694,14 @@ public partial class GamePage : ContentPage
                     //_secondsRemaining = Preferences.Get("secondsRemaining", 120);
                     // checkEnd = Preferences.Get("checkEnd", false);
 
-                    test.Text = frame.BackgroundColor.ToHex();
-
                 }
             }
         }
+        // tester.Text = apple;
+
         
+
+
     }
     //when the game page disappears (when the user switches tio another page)
     public void gamePageDisappearing(object sender, EventArgs e)
@@ -607,7 +715,7 @@ public partial class GamePage : ContentPage
                 { 
                     // Save text of each entry
                    Preferences.Set($"entryText_{i}", entry.Text);
-                  // Preferences.Set($"frameColor_{i}", frame.BackgroundColor.ToHex()); // Save frame color
+                   Preferences.Set($"frameColor_{i}", entry.BackgroundColor.ToArgbHex()); // Save frame color
 
                 }
             }

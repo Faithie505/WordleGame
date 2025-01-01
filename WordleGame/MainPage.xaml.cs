@@ -18,20 +18,11 @@ namespace WordleGame
             //sets the databinding to the viewmodel class
             _viewModel = new ViewModel();
             BindingContext = _viewModel;
-            //test();
             //calls logIn method when page loads
             LogIn();
             ButtonAnimations();
         }
 
-        private void test()
-        {
-           // Preferences.Set("fontValue", 5);
-            //_viewModel.SaveSettings();
-            _viewModel.GetSettings();
-            DisplayAlert("alert", "alert", "no");
-            
-        }
 
 
         //this method asks the user to enter their username so then there stats can be saved and viewed

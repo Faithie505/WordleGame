@@ -6,13 +6,8 @@
              xmlns:local="clr-namespace:WordleGame"
              Appearing="gameContentPage"
              Disappearing="gamePageDisappearing">
-    <ScrollView>
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" 
-            x:Name="test"/>
+    <ScrollView x:Name="gameScrollView">
+        <VerticalStackLayout>
             <Button x:Name="backButton" Clicked="backButton_Clicked"></Button>
             <Label x:Name="tester" Text="Test"></Label>
 
@@ -22,54 +17,52 @@
                 <Label x:Name="score" Text="Score: 0" FontSize="30"></Label>
             </HorizontalStackLayout>
 
-            <Button x:Name="playAgain" Text="Play Again!" IsVisible="False" Clicked="playAgain_Clicked"></Button>
+            <Button x:Name="playAgain" Text="Play Again!" IsVisible="True" Clicked="playAgain_Clicked"></Button>
 
             <!--Creates the grid where the entries will be placed-->
-        <Grid x:Name="gameGrid"  HeightRequest="350" WidthRequest="300"
-HorizontalOptions="Center" VerticalOptions="Center" RowSpacing="5" ColumnSpacing="5">
+            <Grid x:Name="gameGrid"  HeightRequest="320" WidthRequest="270"
+    HorizontalOptions="Center" VerticalOptions="Center" RowSpacing="5" ColumnSpacing="5" Padding="5">
 
-        </Grid>
+            </Grid>
 
-<!--Grid for keyboard-->
-        <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
-      HorizontalOptions="Center" 
-      
-      >
-            <!-- Row 1 -->
-            <Button Text="q" Clicked="OnKeyClicked" Grid.Row="0" Grid.Column="0" FontSize="20"/>
-            <Button Text="w" Clicked="OnKeyClicked" Grid.Row="0" Grid.Column="1" FontSize="20"/>
-            <Button Text="e" Clicked="OnKeyClicked" Grid.Row="0" Grid.Column="2" FontSize="20"/>
-            <Button Text="r" Clicked="OnKeyClicked" Grid.Row="0" Grid.Column="3" FontSize="20"/>
-            <Button Text="t" Clicked="OnKeyClicked" Grid.Row="0" Grid.Column="4" FontSize="20"/>
-            <Button Text="y" Clicked="OnKeyClicked" Grid.Row="0" Grid.Column="5" FontSize="20"/>
-            <Button Text="u" Clicked="OnKeyClicked" Grid.Row="0" Grid.Column="6" FontSize="20"/>
-            <Button Text="i" Clicked="OnKeyClicked" Grid.Row="0" Grid.Column="7" FontSize="20"/>
-            <Button Text="o" Clicked="OnKeyClicked" Grid.Row="0" Grid.Column="8" FontSize="20"/>
-            <Button Text="p" Clicked="OnKeyClicked" Grid.Row="0" Grid.Column="9" FontSize="20"/>
-            <!-- Row 2 -->
-            <Button Text="a" Clicked="OnKeyClicked" Grid.Row="1" Grid.Column="0" FontSize="20"/>
-            <Button Text="s" Clicked="OnKeyClicked" Grid.Row="1" Grid.Column="1" FontSize="20"/>
-            <Button Text="d" Clicked="OnKeyClicked" Grid.Row="1" Grid.Column="2" FontSize="20"/>
-            <Button Text="f" Clicked="OnKeyClicked" Grid.Row="1" Grid.Column="3" FontSize="20"/>
-            <Button Text="g" Clicked="OnKeyClicked" Grid.Row="1" Grid.Column="4" FontSize="20" />
-            <Button Text="h" Clicked="OnKeyClicked" Grid.Row="1" Grid.Column="5" FontSize="20"/>
-            <Button Text="j" Clicked="OnKeyClicked" Grid.Row="1" Grid.Column="6" FontSize="20"/>
-            <Button Text="k" Clicked="OnKeyClicked" Grid.Row="1" Grid.Column="7" FontSize="20"/>
-            <Button Text="l" Clicked="OnKeyClicked" Grid.Row="1" Grid.Column="8" FontSize="20"/>
-            <Button  Clicked="OnKeyClicked" Grid.Row="1" Grid.Column="9" ImageSource="backspace.png"/>
+            <!--Grid for keyboard-->
+            <Grid x:Name="buttonGrid" RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+          HorizontalOptions="Center"  ColumnSpacing="5" RowSpacing="5" Padding="5" HeightRequest="200" >
+                <!-- Row 1 -->
+                <Button Text="Q" Clicked="OnKeyClicked" Grid.Row="0" Grid.Column="0" FontSize="20" BackgroundColor="LightGray" HeightRequest="60" />
+                <Button Text="W" Clicked="OnKeyClicked" Grid.Row="0" Grid.Column="1" FontSize="20" BackgroundColor="LightGray"/>
+                <Button Text="E" Clicked="OnKeyClicked" Grid.Row="0" Grid.Column="2" FontSize="20" BackgroundColor="LightGray"/>
+                <Button Text="R" Clicked="OnKeyClicked" Grid.Row="0" Grid.Column="3" FontSize="20" BackgroundColor="LightGray"/>
+                <Button Text="T" Clicked="OnKeyClicked" Grid.Row="0" Grid.Column="4" FontSize="20" BackgroundColor="LightGray"/>
+                <Button Text="Y" Clicked="OnKeyClicked" Grid.Row="0" Grid.Column="5" FontSize="20" BackgroundColor="LightGray"/>
+                <Button Text="U" Clicked="OnKeyClicked" Grid.Row="0" Grid.Column="6" FontSize="20" BackgroundColor="LightGray"/>
+                <Button Text="I" Clicked="OnKeyClicked" Grid.Row="0" Grid.Column="7" FontSize="20" BackgroundColor="LightGray"/>
+                <Button Text="O" Clicked="OnKeyClicked" Grid.Row="0" Grid.Column="8" FontSize="20" BackgroundColor="LightGray"/>
+                <Button Text="P" Clicked="OnKeyClicked" Grid.Row="0" Grid.Column="9" FontSize="20" BackgroundColor="LightGray"/>
+                <!-- Row 2 -->
+                <Button Text="A" Clicked="OnKeyClicked" Grid.Row="1" Grid.Column="0" FontSize="20" BackgroundColor="LightGray" HeightRequest="60"/>
+                <Button Text="S" Clicked="OnKeyClicked" Grid.Row="1" Grid.Column="1" FontSize="20" BackgroundColor="LightGray"/>
+                <Button Text="D" Clicked="OnKeyClicked" Grid.Row="1" Grid.Column="2" FontSize="20" BackgroundColor="LightGray"/>
+                <Button Text="F" Clicked="OnKeyClicked" Grid.Row="1" Grid.Column="3" FontSize="20" BackgroundColor="LightGray"/>
+                <Button Text="G" Clicked="OnKeyClicked" Grid.Row="1" Grid.Column="4" FontSize="20" BackgroundColor="LightGray"/>
+                <Button Text="H" Clicked="OnKeyClicked" Grid.Row="1" Grid.Column="5" FontSize="20" BackgroundColor="LightGray"/>
+                <Button Text="J" Clicked="OnKeyClicked" Grid.Row="1" Grid.Column="6" FontSize="20" BackgroundColor="LightGray"/>
+                <Button Text="K" Clicked="OnKeyClicked" Grid.Row="1" Grid.Column="7" FontSize="20" BackgroundColor="LightGray"/>
+                <Button Text="L" Clicked="OnKeyClicked" Grid.Row="1" Grid.Column="8" FontSize="20" BackgroundColor="LightGray"/>
+                <Button  Clicked="OnKeyClicked" Grid.Row="1" Grid.Column="9" ImageSource="backspace.png" BackgroundColor="LightGray"/>
 
-            <!-- Row 3 -->
-            <Button Text="z" Clicked="OnKeyClicked" Grid.Row="2" Grid.Column="0" FontSize="20"/>
-            <Button Text="x" Clicked="OnKeyClicked" Grid.Row="2" Grid.Column="1" FontSize="20"/>
-            <Button Text="c" Clicked="OnKeyClicked" Grid.Row="2" Grid.Column="2" FontSize="20"/>
-            <Button Text="v" Clicked="OnKeyClicked" Grid.Row="2" Grid.Column="3" FontSize="20"/>
-            <Button Text="b" Clicked="OnKeyClicked" Grid.Row="2" Grid.Column="4" FontSize="20" />
-            <Button Text="n" Clicked="OnKeyClicked" Grid.Row="2" Grid.Column="5" FontSize="20"/>
-            <Button Text="m" Clicked="OnKeyClicked" Grid.Row="2" Grid.Column="6" FontSize="20"/>
-            <Button Text="Enter" x:Name="enterButton" Clicked="enterButton_Clicked"  Grid.Row="2" Grid.Column="7" Grid.ColumnSpan="3" />
+                <!-- Row 3 -->
+                <Button Text="Z" Clicked="OnKeyClicked" Grid.Row="2" Grid.Column="0" FontSize="20" BackgroundColor="LightGray" HeightRequest="60"/>
+                <Button Text="X" Clicked="OnKeyClicked" Grid.Row="2" Grid.Column="1" FontSize="20" BackgroundColor="LightGray"/>
+                <Button Text="C" Clicked="OnKeyClicked" Grid.Row="2" Grid.Column="2" FontSize="20" BackgroundColor="LightGray"/>
+                <Button Text="V" Clicked="OnKeyClicked" Grid.Row="2" Grid.Column="3" FontSize="20" BackgroundColor="LightGray"/>
+                <Button Text="B" Clicked="OnKeyClicked" Grid.Row="2" Grid.Column="4" FontSize="20" BackgroundColor="LightGray"/>
+                <Button Text="N" Clicked="OnKeyClicked" Grid.Row="2" Grid.Column="5" FontSize="20" BackgroundColor="LightGray"/>
+                <Button Text="M" Clicked="OnKeyClicked" Grid.Row="2" Grid.Column="6" FontSize="20" BackgroundColor="LightGray"/>
+                <Button Text="Enter" x:Name="enterButton" Clicked="enterButton_Clicked"  Grid.Row="2" Grid.Column="7" Grid.ColumnSpan="3" BackgroundColor="LightGray"/>
 
-        </Grid>
+            </Grid>
 
-    </VerticalStackLayout>
+        </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

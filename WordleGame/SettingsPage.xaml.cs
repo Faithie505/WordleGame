@@ -30,26 +30,7 @@ public partial class SettingsPage : ContentPage
         await Navigation.PopAsync();
     }
 
-    private void Switch_Toggled(object sender, ToggledEventArgs e)
-    {
-         if (darkSwitch.IsToggled)
-         {
-            verticalLayout.BackgroundColor = Colors.DarkSlateGrey;
-             darkMode.TextColor = Colors.White;
-             sound.TextColor = Colors.White;
-             fontSize.TextColor = Colors.White;
-            music.TextColor = Colors.White;
-         }
-         else
-         {
-            verticalLayout.BackgroundColor = Colors.White;
-             darkMode.TextColor = Colors.Black;
-             sound.TextColor = Colors.Black;
-             fontSize.TextColor = Colors.Black;
-            music.TextColor = Colors.Black;
-
-        }
-    }
+   
 
     private void FontSlider_ValueChanged(object sender, ValueChangedEventArgs e)
     {
@@ -67,9 +48,10 @@ public partial class SettingsPage : ContentPage
         _viewModel.SaveSettings();
         _viewModel.GetSettings();
 
+        showColours();
         // Optionally, display a message or navigate back
         DisplayAlert("Settings", "Settings have been saved.", "OK");
-        showColours();
+        
 
     }
 
@@ -79,11 +61,18 @@ public partial class SettingsPage : ContentPage
         {
             //this.BackgroundColor = Colors.White;
             settingContentPage.BackgroundColor = Colors.Black;
+            darkMode.TextColor = Colors.White;
+            sound.TextColor = Colors.White;
+            fontSize.TextColor = Colors.White;
+            music.TextColor = Colors.White;
         }
         else if (_viewModel.IsDarkTheme == false)
         {
-            darkMode.Text = "false!";
             settingContentPage.BackgroundColor = Colors.White;
+            darkMode.TextColor = Colors.Black;
+            sound.TextColor = Colors.Black;
+            fontSize.TextColor = Colors.Black;
+            music.TextColor = Colors.Black;
 
         }
     }
@@ -94,11 +83,18 @@ public partial class SettingsPage : ContentPage
         {
             //this.BackgroundColor = Colors.White;
             settingContentPage.BackgroundColor = Colors.Black;
+            darkMode.TextColor = Colors.White;
+            sound.TextColor = Colors.White;
+            fontSize.TextColor = Colors.White;
+            music.TextColor = Colors.White;
         }
         else if (_viewModel.IsDarkTheme == false)
         {
-            darkMode.Text = "false!";
             settingContentPage.BackgroundColor = Colors.White;
+            darkMode.TextColor = Colors.Black;
+            sound.TextColor = Colors.Black;
+            fontSize.TextColor = Colors.Black;
+            music.TextColor = Colors.Black;
 
         }
 
