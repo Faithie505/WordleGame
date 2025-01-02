@@ -134,7 +134,7 @@ namespace WordleGame
 
         private void lighMode()
         {
-            scrollView.BackgroundColor = Color.FromArgb("#e8f5e4");
+            scrollView.BackgroundColor = Color.FromArgb("#8899ac");
 
             playButton.BackgroundColor = Color.FromArgb("#8899ac");
             statsButton.BackgroundColor = Color.FromArgb("#8899ac");

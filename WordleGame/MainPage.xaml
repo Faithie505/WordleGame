@@ -4,12 +4,13 @@
              x:Class="WordleGame.MainPage"
              xmlns:local="clr-namespace:WordleGame"
              Appearing="ContentPage_Appearing"
+             x:Name="scrollView"
              
              >
 
-    <ScrollView x:Name="scrollView" HorizontalOptions="Center">
+    <ScrollView  HorizontalOptions="Center">
         <VerticalStackLayout
-            Padding="30"
+            Padding="50"
             Spacing="55"
             HorizontalOptions="Center"
             VerticalOptions="Center" x:Name="vertStack">

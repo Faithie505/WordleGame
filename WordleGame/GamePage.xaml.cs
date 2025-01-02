@@ -505,7 +505,7 @@ public partial class GamePage : ContentPage
                 inEntry.TextColor = Colors.White;
                 inEntry.BackgroundColor = Color.FromArgb("#6ca965");
                 frame.BackgroundColor = Color.FromArgb("#6ca965"); //green
-                gameScore += 5;
+                
                 correctColour = 0;
                 checkGameOverArray[j] = 1;//if the letter is right, saves number as one
                 
@@ -520,7 +520,7 @@ public partial class GamePage : ContentPage
                 inEntry.TextColor = Colors.White;
                 frame.BackgroundColor = Color.FromArgb("#c8b653");  //yellow
                 inEntry.BackgroundColor = Color.FromArgb("#c8b653");
-                gameScore += 2;
+                
                 correctColour = 1;
                 checkGameOverArray[j] = 0;//if not, saves as 0
                 
@@ -534,7 +534,7 @@ public partial class GamePage : ContentPage
                 inEntry.BackgroundColor = Color.FromArgb("#2f303a");
                 correctColour = 2;
 
-                gameScore += 0;
+               
                 checkGameOverArray[j] = 0;//if not, saves as 0
 
                 //myEntry.TextColor = Colors.White;
