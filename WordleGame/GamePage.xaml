@@ -59,9 +59,15 @@
                 <Button Text="B" Clicked="OnKeyClicked" Grid.Row="2" Grid.Column="4" FontSize="20" BackgroundColor="LightGray"/>
                 <Button Text="N" Clicked="OnKeyClicked" Grid.Row="2" Grid.Column="5" FontSize="20" BackgroundColor="LightGray"/>
                 <Button Text="M" Clicked="OnKeyClicked" Grid.Row="2" Grid.Column="6" FontSize="20" BackgroundColor="LightGray"/>
-                <Button Text="Enter" x:Name="enterButton" Clicked="enterButton_Clicked"  Grid.Row="2" Grid.Column="7" Grid.ColumnSpan="3" BackgroundColor="LightGray"/>
+                <Button Text="ENTER" x:Name="enterButton" Clicked="enterButton_Clicked"  Grid.Row="2" Grid.Column="7" Grid.ColumnSpan="3" BackgroundColor="LightGray"/>
 
             </Grid>
+
+            <HorizontalStackLayout x:Name="phoneSetting" IsVisible="False" HorizontalOptions="Center" Spacing="20" Padding="2" Margin="20">
+                <Button x:Name="hint" Text="HINT"></Button>
+                <Button x:Name="phoneEnterButton" Text="ENTER" Clicked="enterButton_Clicked"></Button>
+                <Button x:Name="delete" Text="D"></Button>
+            </HorizontalStackLayout>
 
         </VerticalStackLayout>
     </ScrollView>

@@ -1,7 +1,7 @@
 
 using Microsoft.Maui.Controls;
-using Microsoft.Maui.Controls.Compatibility;
-using System.Diagnostics.Metrics;
+//using Microsoft.Maui.Controls.Compatibility;
+//using System.Diagnostics.Metrics;
 
 namespace WordleGame;
 
@@ -46,11 +46,12 @@ public partial class GamePage : ContentPage
         _viewModel = new ViewModel();
         BindingContext = _viewModel; //sets the data binding to the ViewModel object 
 
-
+        AndroidSettings();
         StartGrid();//creates the grid of entries when the page loads
         GetSecretWord();//choses one word from the list of words
         getRow(); //finds which row of the gridthe user is on 
         setBackgroundColour();
+        
 
 
 
@@ -67,6 +68,19 @@ public partial class GamePage : ContentPage
 
         // Update the UI with the initial time
         UpdateTimerDisplay();
+    }
+
+    private void AndroidSettings() //this alters all the esettings if the phone is an android phone
+    {
+        if(DeviceInfo.Current.Platform == DevicePlatform.Android)
+        {
+            buttonGrid.IsVisible = false; //makesthe gris of letters not visible, as if the user is using a phone, they will already have thir own keyboard
+            phoneSetting.IsVisible = true;
+            gameGrid.HeightRequest = 350;
+            gameGrid.WidthRequest = 300;
+
+
+        }
     }
 
     private void setBackgroundColour() //the background colour and text colour change in this method depending on if the dark mode switch is toggled or not
@@ -123,6 +137,7 @@ public partial class GamePage : ContentPage
                 if(buttonGrid.Children[i] is Button button)
                 {
                     button.BackgroundColor = Colors.LightGray;
+
                 }
             }
         }

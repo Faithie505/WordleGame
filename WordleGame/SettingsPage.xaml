@@ -11,11 +11,11 @@
 
        
 
-        <Grid ColumnDefinitions="*, *" RowDefinitions="*, *, *, *, *" HorizontalOptions="Center" ColumnSpacing="300" Padding="20" RowSpacing="20">
+        <Grid x:Name="settingsGrid" ColumnDefinitions="*, *" RowDefinitions="*, *, *, *, *" HorizontalOptions="Center" ColumnSpacing="300" Padding="20" RowSpacing="20">
            <!--DARK MODE SETTINGS-->
             <!--FontSize="{Binding Source={x:Reference fontSlider}, Path=Value}"-->
             <Label Text="Dark Mode" HorizontalOptions="Start"  Grid.Row="0" Grid.Column="0" x:Name="darkMode" FontSize="{Binding FontSize}"/>
-            <Switch HorizontalOptions="End" Grid.Row="0" Grid.Column="1" Scale="2" IsToggled="{Binding IsDarkTheme}"  x:Name="darkSwitch" />
+            <Switch HorizontalOptions="End" Grid.Row="0" Grid.Column="1" Scale="2" IsToggled="{Binding IsDarkTheme}"  x:Name="darkSwitch" OnColor="Pink" ThumbColor="Blue"/>
 
             <!--FONT SIZE SETTINGS-->
             <Label Text="Font Size" HorizontalOptions="Start" Grid.Row="1" Grid.Column="0" x:Name="fontSize" FontSize="{Binding FontSize}"/>
@@ -24,11 +24,11 @@
 
             <!--MUSIC SETTINGS-->
             <Label Text="Music" HorizontalOptions="Start" Grid.Row="2" Grid.Column="0" x:Name="music" FontSize="{Binding FontSize}" />
-            <Switch HorizontalOptions="End" Grid.Row="2" Grid.Column="1" Scale="2"/>
+            <Switch HorizontalOptions="End" Grid.Row="2" Grid.Column="1" Scale="2" x:Name="musicSwitch"/>
 
             <!--SOUND SETTINGS-->
             <Label Text="Sound Effects" HorizontalOptions="Start" Grid.Row="3" Grid.Column="0" x:Name="sound" FontSize="{Binding FontSize}"/>
-            <Switch HorizontalOptions="End" Grid.Row="3" Grid.Column="1" Scale="2"/>
+            <Switch HorizontalOptions="End" Grid.Row="3" Grid.Column="1" Scale="2" x:Name="soundSwitch"/>
         </Grid>
 
         <!-- Save Button -->

@@ -7,17 +7,18 @@
              
              >
 
-    <ScrollView x:Name="scrollView">
+    <ScrollView x:Name="scrollView" HorizontalOptions="Center">
         <VerticalStackLayout
             Padding="30"
             Spacing="55"
             HorizontalOptions="Center"
-            VerticalOptions="Center">
+            VerticalOptions="Center" x:Name="vertStack">
+            <Label Text="FAITH'S WORDLE!" HorizontalOptions="Center" FontSize="{Binding FontSize}" x:Name="title"></Label>
 
-            <Button x:Name="playButton" Text="Play Game" WidthRequest="300" Clicked="PlayButton_Clicked"></Button>
-            <Button x:Name="ruleButton" Text="Rules" WidthRequest="300" FontSize="{Binding FontSize}" Clicked="ruleButton_Clicked"></Button>
-            <Button x:Name="settings" Text="Settings" WidthRequest="300" FontSize="{Binding FontSize}" Clicked="settings_Clicked"></Button>
-            <Button x:Name="statsButton" Text="Statistics" WidthRequest="300" FontSize="{Binding FontSize}" Clicked="statsButton_Clicked"></Button>
+            <Button x:Name="playButton" Text="PLAY GAME" WidthRequest="300" Clicked="PlayButton_Clicked" ></Button>
+            <Button x:Name="ruleButton" Text="RULES" WidthRequest="300" FontSize="{Binding FontSize}" Clicked="ruleButton_Clicked"></Button>
+            <Button x:Name="settings" Text="SETTINGS" WidthRequest="300" FontSize="{Binding FontSize}" Clicked="settings_Clicked"></Button>
+            <Button x:Name="statsButton" Text="STATISTICS" WidthRequest="300" FontSize="{Binding FontSize}" Clicked="statsButton_Clicked"></Button>
         </VerticalStackLayout>
     </ScrollView>
 

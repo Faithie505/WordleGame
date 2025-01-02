@@ -21,6 +21,20 @@ namespace WordleGame
             //calls logIn method when page loads
             LogIn();
             ButtonAnimations();
+            AndroidSettings();
+        }
+
+        private void AndroidSettings()
+        {
+            if (DeviceInfo.Current.Platform == DevicePlatform.Android)
+            {
+                vertStack.Spacing = 50;
+                playButton.HeightRequest = 70;
+                statsButton.HeightRequest = 70;
+                settings.HeightRequest = 70;
+                ruleButton.HeightRequest = 70;
+
+            }
         }
 
 
@@ -31,8 +45,6 @@ namespace WordleGame
             await Task.Delay(1000);
             //username = await DisplayPromptAsync("Log In", "Please enter your username", accept: "Enter");
         }
-
-        //chooses a random word from the list and makes it the correct word
         
 
 
@@ -83,18 +95,67 @@ namespace WordleGame
 
             if (_viewModel.IsDarkTheme == true)
             {
-                scrollView.BackgroundColor = Colors.Black;
+                //scrollView.BackgroundColor = Colors.Black;
+                darkMode();
             }
             else if (_viewModel.IsDarkTheme == false)
             {
-                scrollView.BackgroundColor = Colors.White;
-
+                //scrollView.BackgroundColor = Colors.White;
+                lighMode();
             }
 
-            
+        }
+
+        private void darkMode()
+        {
+            scrollView.BackgroundColor = Color.FromArgb("#15202b");
+
+            playButton.BackgroundColor = Color.FromArgb("#22303c");
+            statsButton.BackgroundColor = Color.FromArgb("#22303c");
+            settings.BackgroundColor = Color.FromArgb("#22303c");
+            ruleButton.BackgroundColor = Color.FromArgb("#22303c");
+
+            playButton.BorderColor = Color.FromArgb("#8899ac");
+            statsButton.BorderColor = Color.FromArgb("#8899ac");
+            settings.BorderColor = Color.FromArgb("#8899ac");
+            ruleButton.BorderColor = Color.FromArgb("#8899ac");
+
+            playButton.BorderWidth = 2;
+            statsButton.BorderWidth = 2;
+            settings.BorderWidth = 2;
+            ruleButton.BorderWidth = 2;
+
+            playButton.TextColor = Colors.White;
+            statsButton.TextColor = Colors.White;
+            settings.TextColor = Colors.White;
+            ruleButton.TextColor = Colors.White;
+        }
 
 
+        private void lighMode()
+        {
+            scrollView.BackgroundColor = Color.FromArgb("#e8f5e4");
 
+            playButton.BackgroundColor = Color.FromArgb("#8899ac");
+            statsButton.BackgroundColor = Color.FromArgb("#8899ac");
+            settings.BackgroundColor = Color.FromArgb("#8899ac");
+            ruleButton.BackgroundColor = Color.FromArgb("#8899ac");
+
+            playButton.BorderColor = Color.FromArgb("#22303c");
+            statsButton.BorderColor = Color.FromArgb("#22303c");
+            settings.BorderColor = Color.FromArgb("#22303c");
+            ruleButton.BorderColor = Color.FromArgb("#22303c");
+
+            playButton.BorderWidth = 2;
+            statsButton.BorderWidth = 2;
+            settings.BorderWidth = 2;
+            ruleButton.BorderWidth = 2;
+
+            playButton.TextColor = Colors.White;
+            statsButton.TextColor = Colors.White;
+            settings.TextColor = Colors.White;
+            ruleButton.TextColor = Colors.White;
+            title.TextColor = Colors.Black;
         }
     }
 

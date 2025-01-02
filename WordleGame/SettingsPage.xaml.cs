@@ -13,17 +13,29 @@ public partial class SettingsPage : ContentPage
         InitializeComponent();
         _viewModel = new ViewModel();
         BindingContext = _viewModel;
+        AndroidSettings();
     }
 
 
-    /*private void fontSlider_ValueChanged(object sender, ValueChangedEventArgs e)
-    {
-        int value = Convert.ToInt32(e.NewValue);
-        fontSize.FontSize = value;
-        darkMode.FontSize = value;
-        sound.FontSize = value;
+   private void AndroidSettings()
+   {
+        if(DeviceInfo.Current.Platform == DevicePlatform.Android)
+        {
+            //fontSlider.Maximum = 10;
+           // fontSlider.Minimum = 50;
+            settingsGrid.WidthRequest = 380;
+            settingsGrid.ColumnSpacing = 40;
+            settingsGrid.Padding = 20;
+            settingsGrid.RowSpacing = 20;
+            soundSwitch.Scale = 1.5;
+            musicSwitch.Scale = 1.5;
+            darkSwitch.Scale = 1.5;
+            darkSwitch.OnColor = Colors.DeepPink;
+            darkSwitch.ThumbColor = Colors.DeepSkyBlue;
+            
 
-    }*/
+        }
+   }
 
     private async void backButton_Clicked(object sender, EventArgs e)
     {
